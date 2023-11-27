@@ -1,7 +1,9 @@
 <script setup>
-    import { ref } from 'vue';
+    import { ref, defineEmits } from 'vue';
     const shoespots = ["Laces", "Outsole", "Midsole", "Outer material", "Mid material", "Inner material", "Tongue"];
     let shoespot = ref(0);
+    //define emit function
+    const emit = defineEmits(['shoespot-changed']);
 
     console.log(shoespot.value);
     const next = () => {
@@ -10,6 +12,7 @@
         } else{
             shoespot.value = 0;
         }
+        emit('shoespot-changed', shoespot.value);
         document.getElementById("shoespotindicator").innerHTML = shoespots[shoespot.value];
     }
     const back = () => {
@@ -21,6 +24,7 @@
             console.log(shoespot.value);
             console.log(shoespots.length - 1);
         }
+        emit('shoespot-changed', shoespot.value);
         document.getElementById("shoespotindicator").innerHTML = shoespots[shoespot.value];
     }
 </script>

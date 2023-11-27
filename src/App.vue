@@ -1,7 +1,13 @@
 <script setup>
-import Shoe from './components/shoe.vue';
+import Shoe from './components/Shoe.vue';
 import Choose from './components/Choose.vue';
+import { ref } from 'vue';
 
+let shoespot = ref(0);
+
+const updateShoespot = (newShoespot) => {
+  shoespot.value = newShoespot;
+};
 </script>
 
 <template>
@@ -11,9 +17,9 @@ import Choose from './components/Choose.vue';
   <div id="shoeinfo">
     <h1>Shoe Configurator</h1>
   </div>
-  <Shoe id="shoe" />
+  <Shoe id="shoe" :shoespot="shoespot" />
   <div id="choose">
-    <Choose />
+    <Choose @shoespot-changed="updateShoespot"/>
   </div>
 </template>
 
