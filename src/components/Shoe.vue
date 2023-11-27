@@ -13,7 +13,8 @@ document.body.appendChild(renderer.domElement);
 scene.background = new THREE.Color( 0xffffff );
 
 const controls = new OrbitControls( camera, renderer.domElement );
-
+//stop pan controls
+controls.enablePan = false;
 //minimum distance from the object
 controls.minDistance = 0.3;
 //maximum distance from the object
