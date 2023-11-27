@@ -23,13 +23,28 @@ controls.maxDistance = 0.5;
 const gltfloader = new GLTFLoader();
 
 
-
 gltfloader.load(
   '/models/shoe.glb',
     function ( gltf ) {
         const shoe = gltf.scene;
-    shoe.scale.set(1,1,1);
-    scene.add( shoe );
+        console.log(shoe["children"][0]["children"]);
+        shoe.scale.set(1,1,1);
+        //color the shoe
+        //inside
+        shoe["children"][0]["children"][0].material.color.setHex(0xff0000);
+        //laces
+        shoe["children"][0]["children"][1].material.color.setHex(0xff00ff);
+        //outside 1
+        shoe["children"][0]["children"][2].material.color.setHex(0x00ffff);
+        //outside 2
+        shoe["children"][0]["children"][3].material.color.setHex(0x00ff00);
+        //outside 3
+        shoe["children"][0]["children"][4].material.color.setHex(0xffff00);
+        //soleBottom
+        shoe["children"][0]["children"][5].material.color.setHex(0x0000ff);
+        //soleTop + lips
+        shoe["children"][0]["children"][6].material.color.setHex(0x000000);
+        scene.add( shoe );
     },
 );
 
@@ -46,6 +61,7 @@ camera.position.z = 0.5;
 </script>
 
 <template>
+
 </template>
 
 <style scoped>
