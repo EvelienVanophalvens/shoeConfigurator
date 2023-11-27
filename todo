@@ -1,8 +1,17 @@
 vue:
-- color configurator
+- color configurator (10 colors)
   - Zool
   - veters
   - ...
+- material configurator (leather and textile)
+  - same thing
+
+nice to have:
+- letter configurator
+  - initials on the back
+- swear logo or no swear logo
+
+
 nodejs:
 - shop
 threejs:
