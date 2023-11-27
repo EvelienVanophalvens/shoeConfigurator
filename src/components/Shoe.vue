@@ -6,13 +6,12 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-
+let shoe;
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 scene.background = new THREE.Color( 0xffffff );
-
 const controls = new OrbitControls( camera, renderer.domElement );
 //stop pan controls
 controls.enablePan = false;
@@ -28,7 +27,8 @@ const gltfloader = new GLTFLoader();
 gltfloader.load(
   '/models/shoe.glb',
     function ( gltf ) {
-        const shoe = gltf.scene;
+        shoe = gltf.scene;
+        controls.target.set(shoe.position.x, shoe.position.y, shoe.position.z); 
         console.log(shoe["children"][0]["children"]);
         shoe.scale.set(1,1,1);
         //color the shoe
@@ -69,7 +69,7 @@ camera.rotation.x = Math.PI / -6;
 let targetCameraZ = ref(0.5);
 let targetCameraY = ref(0);
 let targetCameraRotationX = ref(0); // Add this line
-let targetCameraRotationY = ref(0); // Add this line
+let targetShoeRotationY = ref(0); // Add this line
 // Watch for changes in shoespot
 watch(() => props.shoespot, (newShoespot) => {
   // Change the shoe position based on the new shoespot
@@ -79,19 +79,19 @@ watch(() => props.shoespot, (newShoespot) => {
     targetCameraZ.value = 0.3;
     targetCameraY.value = 0.2; // Move camera up
     targetCameraRotationX.value = Math.PI / -6; // Rotate 30 degrees downward
-    targetCameraRotationY.value = 0;
+    targetShoeRotationY.value = 0;
   }else if(newShoespot == 1){
     change = true;
     targetCameraZ.value = 0.5;
-    targetCameraY.value = 0; // Move camera up
+    targetCameraY.value = 0;
     targetCameraRotationX.value = 0
-    targetCameraRotationY.value = Math.PI / 2;
+    targetShoeRotationY.value = Math.PI / 2; // Rotate shoe 90 degrees to the left
   }else {
     change = true;
     targetCameraZ.value = 0.5;
-    targetCameraY.value = 0; // Move camera up
+    targetCameraY.value = 0;
     targetCameraRotationX.value = 0;
-    targetCameraRotationY.value = 0;
+    targetShoeRotationY.value = 0;
   }
 });
 
@@ -105,9 +105,9 @@ function animate() {
     camera.position.z += (targetCameraZ.value - camera.position.z) * 0.2;
     camera.position.y += (targetCameraY.value - camera.position.y) * 0.2; // Add this line
     camera.rotation.x += (targetCameraRotationX.value - camera.rotation.x) * 0.2; // Add this line
-    camera.rotation.y += (targetCameraRotationY.value - camera.rotation.y) * 0.2; // Add this line
+    shoe.rotation.y += (targetShoeRotationY.value - shoe.rotation.y) * 0.2; // Add this line
     //wait until animation finishes
-    if (Math.abs(camera.position.z - targetCameraZ.value) < 0.001 && Math.abs(camera.position.y - targetCameraY.value) < 0.001 && Math.abs(camera.rotation.x - targetCameraRotationX.value) < 0.001 && Math.abs(camera.rotation.y - targetCameraRotationY.value) < 0.001) {
+    if (Math.abs(camera.position.z - targetCameraZ.value) < 0.001 && Math.abs(camera.position.y - targetCameraY.value) < 0.001 && Math.abs(camera.rotation.x - targetCameraRotationX.value) < 0.001&& Math.abs(camera.position.y - targetCameraY.value) < 0.001 && Math.abs(camera.rotation.x - targetCameraRotationX.value) < 0.001 && Math.abs(shoe.rotation.y - targetShoeRotationY.value) < 0.001) {
       change = false;
       controls.enabled = true;
     }
