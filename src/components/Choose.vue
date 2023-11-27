@@ -4,8 +4,6 @@
     let shoespot = ref(0);
     //define emit function
     const emit = defineEmits(['shoespot-changed']);
-
-    console.log(shoespot.value);
     const next = () => {
         if (shoespot.value < shoespots.length -1) {
             shoespot.value++;
@@ -18,11 +16,8 @@
     const back = () => {
         if (shoespot.value > 0) {
             shoespot.value--;
-            console.log(shoespot.value);
         } else {
             shoespot.value = shoespots.length - 1;
-            console.log(shoespot.value);
-            console.log(shoespots.length - 1);
         }
         emit('shoespot-changed', shoespot.value);
         document.getElementById("shoespotindicator").innerHTML = shoespots[shoespot.value];
