@@ -1,6 +1,7 @@
 <script setup>
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -13,10 +14,22 @@ scene.background = new THREE.Color( 0xffffff );
 
 const controls = new OrbitControls( camera, renderer.domElement );
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+//load gltf model
+const gltfloader = new GLTFLoader();
+
+
+
+gltfloader.load(
+  '/models/shoe.glb',
+    function ( gltf ) {
+        const shoe = gltf.scene;
+    shoe.scale.set(1,1,1);
+    scene.add( shoe );
+    },
+);
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Adjust the intensity (e.g., 0.8)
+scene.add(ambientLight);
 
 function animate() {
 	requestAnimationFrame( animate );
@@ -24,7 +37,7 @@ function animate() {
 }
 animate();
 
-camera.position.z = 5;
+camera.position.z = 0.5;
 </script>
 
 <template>
