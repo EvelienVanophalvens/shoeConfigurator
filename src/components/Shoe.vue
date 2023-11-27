@@ -66,6 +66,7 @@ let change = false;
 camera.position.z = 0.3;
 camera.position.y = 0.2;
 camera.rotation.x = Math.PI / -6;
+camera.rotation.y = 0;
 let targetCameraZ = ref(0.5);
 let targetCameraY = ref(0);
 let targetCameraRotationX = ref(0); // Add this line
@@ -76,7 +77,7 @@ watch(() => props.shoespot, (newShoespot) => {
   console.log(newShoespot);
   if(newShoespot == 0){
     change = true;
-    targetCameraZ.value = 0.3;
+    targetCameraZ.value = 0.3; //zoom
     targetCameraY.value = 0.2; // Move camera up
     targetCameraRotationX.value = Math.PI / -6; // Rotate 30 degrees downward
     targetShoeRotationY.value = 0;
@@ -86,12 +87,37 @@ watch(() => props.shoespot, (newShoespot) => {
     targetCameraY.value = 0;
     targetCameraRotationX.value = 0
     targetShoeRotationY.value = Math.PI / 2; // Rotate shoe 90 degrees to the left
-  }else {
+  }else if(newShoespot == 2){
     change = true;
-    targetCameraZ.value = 0.5;
+    targetCameraZ.value = 0.3; //zoom
     targetCameraY.value = 0;
     targetCameraRotationX.value = 0;
-    targetShoeRotationY.value = 0;
+    targetShoeRotationY.value = Math.PI/2; // Rotate shoe 180 degrees to the left
+  }else if(newShoespot == 3){
+    change = true;
+    targetCameraZ.value = 0.3; //zoom
+    targetCameraY.value = 0.2; //move up
+    targetCameraRotationX.value =  Math.PI / -6; // Rotate 30 degrees downward
+    targetShoeRotationY.value = Math.PI/2.8; // Rotate
+  }else if(newShoespot == 4){
+    change = true;
+    targetCameraZ.value = 0.2; //zoom
+    targetCameraY.value = 0.15; //move up
+    targetCameraRotationX.value =  Math.PI / -6; // Rotate 30 degrees downward
+    targetShoeRotationY.value = Math.PI/2.8; // Rotate
+  }else if(newShoespot == 5){
+    change = true;
+    targetCameraZ.value = 0.3; //zoom
+    targetCameraY.value = 0.2; //move up
+    targetCameraRotationX.value =  Math.PI / -6; // Rotate 30 degrees downward
+    targetShoeRotationY.value = Math.PI/2; // Rotate
+  }
+  else {
+    change = true;
+    targetCameraZ.value = 0.3;
+    targetCameraY.value = 0.2;
+    targetCameraRotationX.value = Math.PI / -6;
+    targetShoeRotationY.value = Math.PI/3.5; // Rotate
   }
 });
 
