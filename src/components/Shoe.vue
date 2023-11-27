@@ -14,6 +14,11 @@ scene.background = new THREE.Color( 0xffffff );
 
 const controls = new OrbitControls( camera, renderer.domElement );
 
+//minimum distance from the object
+controls.minDistance = 0.3;
+//maximum distance from the object
+controls.maxDistance = 0.5;
+
 //load gltf model
 const gltfloader = new GLTFLoader();
 
