@@ -1,4 +1,5 @@
 <script setup>
+import { watch, ref } from 'vue';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -52,13 +53,69 @@ gltfloader.load(
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Adjust the intensity (e.g., 0.8)
 scene.add(ambientLight);
 
+// Use the shoespot prop
+const props = defineProps({
+  shoespot: Number
+});
+
+
+//define lets
+let change = false;
+
+// Define a flag for user interaction
+camera.position.z = 0.3;
+camera.position.y = 0.2;
+camera.rotation.x = Math.PI / -6;
+let targetCameraZ = ref(0.5);
+let targetCameraY = ref(0);
+let targetCameraRotationX = ref(0); // Add this line
+let targetCameraRotationY = ref(0); // Add this line
+// Watch for changes in shoespot
+watch(() => props.shoespot, (newShoespot) => {
+  // Change the shoe position based on the new shoespot
+  console.log(newShoespot);
+  if(newShoespot == 0){
+    change = true;
+    targetCameraZ.value = 0.3;
+    targetCameraY.value = 0.2; // Move camera up
+    targetCameraRotationX.value = Math.PI / -6; // Rotate 30 degrees downward
+    targetCameraRotationY.value = 0;
+  }else if(newShoespot == 1){
+    change = true;
+    targetCameraZ.value = 0.5;
+    targetCameraY.value = 0; // Move camera up
+    targetCameraRotationX.value = 0
+    targetCameraRotationY.value = Math.PI / 2;
+  }else {
+    change = true;
+    targetCameraZ.value = 0.5;
+    targetCameraY.value = 0; // Move camera up
+    targetCameraRotationX.value = 0;
+    targetCameraRotationY.value = 0;
+  }
+});
+
 function animate() {
 	requestAnimationFrame( animate );
 	renderer.render( scene, camera );
+  
+  // Lerp the camera position
+  if (change == true) {
+    controls.enabled = false;
+    camera.position.z += (targetCameraZ.value - camera.position.z) * 0.2;
+    camera.position.y += (targetCameraY.value - camera.position.y) * 0.2; // Add this line
+    camera.rotation.x += (targetCameraRotationX.value - camera.rotation.x) * 0.2; // Add this line
+    camera.rotation.y += (targetCameraRotationY.value - camera.rotation.y) * 0.2; // Add this line
+    //wait until animation finishes
+    if (Math.abs(camera.position.z - targetCameraZ.value) < 0.001 && Math.abs(camera.position.y - targetCameraY.value) < 0.001 && Math.abs(camera.rotation.x - targetCameraRotationX.value) < 0.001 && Math.abs(camera.rotation.y - targetCameraRotationY.value) < 0.001) {
+      change = false;
+      controls.enabled = true;
+    }
+  }
+
+renderer.render(scene, camera);
 }
 animate();
-
-camera.position.z = 0.5;
 </script>
 
 <template>
