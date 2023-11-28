@@ -104,20 +104,16 @@ gltfloader.load(
 
 
 
-//add white plane
-const planeGeometry = new THREE.PlaneGeometry(30, 30, 30);
-const planeMaterial = new THREE.MeshPhysicalMaterial({ color: 0Xf00000 });
-const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-plane.rotation.x = -0.5 * Math.PI;
-plane.position.y = -0.05;
-//cast shadows
+const geometry = new THREE.PlaneGeometry( 2000, 2000 );
+geometry.rotateX( - Math.PI / 2 );
+
+const material = new THREE.ShadowMaterial();
+material.opacity = 0.2;
+
+const plane = new THREE.Mesh( geometry, material );
 plane.receiveShadow = true;
-
-
-
-
-scene.add(plane);
-
+plane.position.y = -0.05;
+scene.add( plane );
 
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Adjust the intensity (e.g., 0.8)
