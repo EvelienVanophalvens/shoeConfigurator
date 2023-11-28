@@ -4,6 +4,13 @@
     let shoespot = ref(0);
     let colors = ref(0);
     let colorOutsole = ["#ffffff", "#000000"];
+    let colorLaces = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
+    let colorMidsole = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
+    let colorOuterMaterial = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
+    let colorMidMaterial = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
+    let colorInnerMaterial = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
+    let colorTongue = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
+
 
     //define emit function
     const emit = defineEmits(['shoespot-changed']);
@@ -30,25 +37,25 @@
     const updateColors = () => {
     switch(shoespot.value) {
         case 0:
-            colors.value = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
+            colors.value =  colorLaces;
             break;
         case 1:
-            colors.value = ["#ffffff", "#000000"];
+            colors.value = colorOutsole;
             break;
         case 2:
-            colors.value = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
+            colors.value = colorMidsole;
             break;
         case 3:
-            colors.value = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
+            colors.value = colorOuterMaterial;
             break;
         case 4:
-            colors.value = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
+            colors.value = colorMidMaterial;
             break;
         case 5:
-            colors.value = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
+            colors.value = colorInnerMaterial;
             break;
         case 6:
-            colors.value = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
+            colors.value = colorTongue;
             break;
     }
     }
