@@ -108,7 +108,7 @@ const geometry = new THREE.PlaneGeometry( 2000, 2000 );
 geometry.rotateX( - Math.PI / 2 );
 
 const material = new THREE.ShadowMaterial();
-material.opacity = 0.2;
+material.opacity = 0.4;
 
 const plane = new THREE.Mesh( geometry, material );
 plane.receiveShadow = true;
@@ -121,7 +121,7 @@ scene.add(ambientLight);
 
 //add directional light with shadows
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-directionalLight.position.set(0.8, 1.2, 0.2);
+directionalLight.position.set(0, 1, 0);
 directionalLight.castShadow = true;
 //add helper
 
@@ -129,6 +129,7 @@ directionalLight.castShadow = true
 
 
 scene.add(directionalLight);
+
 
 
 
