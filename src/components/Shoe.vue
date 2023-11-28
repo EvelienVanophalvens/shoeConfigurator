@@ -24,6 +24,14 @@ controls.maxDistance = 0.5;
 const gltfloader = new GLTFLoader();
 
 
+// Use the prop
+const props = defineProps({
+  shoespot: Number,
+  color: String
+});
+
+let color = props.color;
+
 gltfloader.load(
   '/models/shoe.glb',
   function (gltf) {
@@ -32,19 +40,49 @@ gltfloader.load(
     shoe.scale.set(1, 1, 1);
     //color the shoe
     //inside
-    shoe["children"][0]["children"][0].material.color.setHex(0xff0000);
+    shoe["children"][0]["children"][0].material.color.setHex(0xffffff);
     //laces
-    shoe["children"][0]["children"][1].material.color.setHex(0xff00ff);
+    shoe["children"][0]["children"][1].material.color.setHex(0xffffff);
     //outside 1
-    shoe["children"][0]["children"][2].material.color.setHex(0x00ffff);
+    shoe["children"][0]["children"][2].material.color.setHex(0xffffff);
     //outside 2
-    shoe["children"][0]["children"][3].material.color.setHex(0x00ff00);
+    shoe["children"][0]["children"][3].material.color.setHex(0xffffff);
     //outside 3
-    shoe["children"][0]["children"][4].material.color.setHex(0xffff00);
+    shoe["children"][0]["children"][4].material.color.setHex(0xffffff);
     //soleBottom
-    shoe["children"][0]["children"][5].material.color.setHex(0x0000ff);
+    shoe["children"][0]["children"][5].material.color.setHex(0xffffff);
     //soleTop + lips
-    shoe["children"][0]["children"][6].material.color.setHex(0x000000);
+    shoe["children"][0]["children"][6].material.color.setHex(0xffffff);
+    console.log(color);
+    watch(() => props.color, (newColor) => {
+      color = parseInt("0x"+newColor);
+      console.log(color);
+      console.log(props.shoespot);
+      switch(props.shoespot) {
+      case 0:
+        shoe["children"][0]["children"][1].material.color.setHex(color);
+        break;
+      case 1:
+        shoe["children"][0]["children"][5].material.color.setHex(color);
+        break;
+      case 2:
+        shoe["children"][0]["children"][6].material.color.setHex(color);
+        break;
+      case 3:
+        shoe["children"][0]["children"][2].material.color.setHex(color);
+        break;
+      case 4:
+        shoe["children"][0]["children"][3].material.color.setHex(color);
+        shoe["children"][0]["children"][4].material.color.setHex(color);
+        break;
+      case 5:
+        shoe["children"][0]["children"][0].material.color.setHex(color);
+        break;
+    }
+    });
+
+   
+
     scene.add(shoe);
   },
 );
@@ -52,10 +90,6 @@ gltfloader.load(
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Adjust the intensity (e.g., 0.8)
 scene.add(ambientLight);
 
-// Use the shoespot prop
-const props = defineProps({
-  shoespot: Number
-});
 
 //define lets
 let change = false;
@@ -111,14 +145,6 @@ watch(() => props.shoespot, (newShoespot) => {
     targetCameraY.value = 0.2; //move up
     targetCameraRotationX.value =  Math.PI / -6; // Rotate 30 degrees downward
     targetShoeRotationY.value = Math.PI/2; // Rotate
-  }
-  else {
-    camera.rotation.y = 0;
-    change = true;
-    targetCameraZ.value = 0.3;
-    targetCameraY.value = 0.2;
-    targetCameraRotationX.value = Math.PI / -6;
-    targetShoeRotationY.value = Math.PI/3.5; // Rotate
   }
 });
 
