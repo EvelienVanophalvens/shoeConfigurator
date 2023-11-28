@@ -20,6 +20,11 @@ controls.minDistance = 0.3;
 //maximum distance from the object
 controls.maxDistance = 0.5;
 
+
+
+
+
+
 //load gltf model
 const gltfloader = new GLTFLoader();
 
@@ -38,6 +43,7 @@ gltfloader.load(
     shoe = gltf.scene;
     controls.target.set(shoe.position.x, shoe.position.y, shoe.position.z);
     shoe.scale.set(1, 1, 1);
+
     //color the shoe
     //inside
     shoe["children"][0]["children"][0].material.color.setHex(0xffffff);
@@ -89,6 +95,11 @@ gltfloader.load(
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Adjust the intensity (e.g., 0.8)
 scene.add(ambientLight);
+
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8); // Adjust the intensity (e.g., 0.8)
+directionalLight.position.set(1, 1, 1);
+scene.add(directionalLight);
+
 
 
 //define lets
