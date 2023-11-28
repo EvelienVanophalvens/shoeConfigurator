@@ -3,6 +3,7 @@ import { watch, ref } from 'vue';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { GUI } from 'dat.gui';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -10,20 +11,19 @@ let shoe;
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
-
+//enable shadows
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 scene.background = new THREE.Color(0xffffff);
 const controls = new OrbitControls(camera, renderer.domElement);
+
+
 //stop pan controls
 controls.enablePan = false;
 //minimum distance from the object
 controls.minDistance = 0.3;
 //maximum distance from the object
-controls.maxDistance = 0.5;
-
-
-
-
-
+controls.maxDistance =0.5;
 
 //load gltf model
 const gltfloader = new GLTFLoader();
@@ -42,7 +42,16 @@ gltfloader.load(
   function (gltf) {
     shoe = gltf.scene;
     controls.target.set(shoe.position.x, shoe.position.y, shoe.position.z);
-    shoe.scale.set(1, 1, 1);
+    shoe.scale.set(0.5, 0.5, 0.5);
+    //cast shadow to plane
+    console.log(shoe);
+
+    //add shadows to children
+    shoe.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = true;
+      }
+    });
 
     //color the shoe
     //inside
@@ -93,12 +102,44 @@ gltfloader.load(
   },
 );
 
+
+
+//add white plane
+const planeGeometry = new THREE.PlaneGeometry(30, 30, 30);
+const planeMaterial = new THREE.MeshPhysicalMaterial({ color: 0Xf00000 });
+const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+plane.rotation.x = -0.5 * Math.PI;
+plane.position.y = -0.05;
+//cast shadows
+plane.receiveShadow = true;
+
+
+
+
+scene.add(plane);
+
+
+
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Adjust the intensity (e.g., 0.8)
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8); // Adjust the intensity (e.g., 0.8)
-directionalLight.position.set(1, 1, 1);
+//add directional light with shadows
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+directionalLight.position.set(0.8, 1.2, 0.2);
+directionalLight.castShadow = true;
+//add helper
+
+directionalLight.castShadow = true
+
+
 scene.add(directionalLight);
+
+
+
+
+
+
+
 
 
 
