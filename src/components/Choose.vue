@@ -62,7 +62,8 @@
     updateColors();
 
     const setColor = (color, e) => {
-        emit('color-changed', color);
+        const newColor = color.slice(1);
+        emit('color-changed', newColor);
 
     }
 

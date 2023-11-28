@@ -41,19 +41,51 @@ gltfloader.load(
     shoe.scale.set(1, 1, 1);
     //color the shoe
     //inside
-    shoe["children"][0]["children"][0].material.color.setHex(0xff0000);
+    shoe["children"][0]["children"][0].material.color.setHex(0xffffff);
     //laces
-    shoe["children"][0]["children"][1].material.color.setHex(0xff00ff);
+    shoe["children"][0]["children"][1].material.color.setHex(0xffffff);
     //outside 1
-    shoe["children"][0]["children"][2].material.color.setHex(0x00ffff);
+    shoe["children"][0]["children"][2].material.color.setHex(0xffffff);
     //outside 2
-    shoe["children"][0]["children"][3].material.color.setHex(0x00ff00);
+    shoe["children"][0]["children"][3].material.color.setHex(0xffffff);
     //outside 3
-    shoe["children"][0]["children"][4].material.color.setHex(0xffff00);
+    shoe["children"][0]["children"][4].material.color.setHex(0xffffff);
     //soleBottom
-    shoe["children"][0]["children"][5].material.color.setHex(0x0000ff);
+    shoe["children"][0]["children"][5].material.color.setHex(0xffffff);
     //soleTop + lips
-    shoe["children"][0]["children"][6].material.color.setHex(0x000000);
+    shoe["children"][0]["children"][6].material.color.setHex(0xffffff);
+    console.log(color);
+    watch(() => props.color, (newColor) => {
+      color = "0x"+newColor;
+      console.log(color);
+      console.log(shoespot);
+      switch(shoespot) {
+      case 0:
+        shoe["children"][0]["children"][1].material.color.setHex(color);
+        break;
+      case 1:
+        shoe["children"][0]["children"][5].material.color.setHex(color);
+        break;
+      case 2:
+        shoe["children"][0]["children"][6].material.color.setHex(color);
+        break;
+      case 3:
+        shoe["children"][0]["children"][2].material.color.setHex(color);
+        break;
+      case 4:
+        shoe["children"][0]["children"][3].material.color.setHex(color);
+        break;
+      case 5:
+        shoe["children"][0]["children"][4].material.color.setHex(color);
+        break;
+      case 6:
+        shoe["children"][0]["children"][0].material.color.setHex(color);
+        break;
+    }
+    });
+
+   
+
     scene.add(shoe);
   },
 );
