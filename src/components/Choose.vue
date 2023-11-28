@@ -121,6 +121,9 @@ li {
     border-radius: 50%;
     list-style-type: none;
     margin: 0.5em;
+    border: #D6D0C5;
+    border-style: solid;
+    border-width: 2px;
 
 }
 </style>
