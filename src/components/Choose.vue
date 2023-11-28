@@ -1,6 +1,6 @@
 <script setup>
     import { ref, defineEmits } from 'vue';
-    const shoespots = ["Laces", "Outsole", "Midsole", "Outer material", "Mid material", "Inner material", "Tongue"];
+    const shoespots = ["Laces", "Outsole", "Midsole", "Outer material", "Mid material", "Inner material"];
     let shoespot = ref(0);
     let colors = ref(0);
     let colorOutsole = ["#ffffff", "#000000"];

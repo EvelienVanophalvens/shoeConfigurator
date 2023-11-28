@@ -73,11 +73,9 @@ gltfloader.load(
         break;
       case 4:
         shoe["children"][0]["children"][3].material.color.setHex(color);
-        break;
-      case 5:
         shoe["children"][0]["children"][4].material.color.setHex(color);
         break;
-      case 6:
+      case 5:
         shoe["children"][0]["children"][0].material.color.setHex(color);
         break;
     }
@@ -147,14 +145,6 @@ watch(() => props.shoespot, (newShoespot) => {
     targetCameraY.value = 0.2; //move up
     targetCameraRotationX.value =  Math.PI / -6; // Rotate 30 degrees downward
     targetShoeRotationY.value = Math.PI/2; // Rotate
-  }
-  else {
-    camera.rotation.y = 0;
-    change = true;
-    targetCameraZ.value = 0.3;
-    targetCameraY.value = 0.2;
-    targetCameraRotationX.value = Math.PI / -6;
-    targetShoeRotationY.value = Math.PI/3.5; // Rotate
   }
 });
 
