@@ -31,7 +31,6 @@ const props = defineProps({
 });
 
 let color = props.color;
-let shoespot = props.shoespot;
 
 gltfloader.load(
   '/models/shoe.glb',
@@ -56,10 +55,10 @@ gltfloader.load(
     shoe["children"][0]["children"][6].material.color.setHex(0xffffff);
     console.log(color);
     watch(() => props.color, (newColor) => {
-      color = "0x"+newColor;
+      color = parseInt("0x"+newColor);
       console.log(color);
-      console.log(shoespot);
-      switch(shoespot) {
+      console.log(props.shoespot);
+      switch(props.shoespot) {
       case 0:
         shoe["children"][0]["children"][1].material.color.setHex(color);
         break;
