@@ -24,6 +24,15 @@ controls.maxDistance = 0.5;
 const gltfloader = new GLTFLoader();
 
 
+// Use the prop
+const props = defineProps({
+  shoespot: Number,
+  color: String
+});
+
+let color = props.color;
+let shoespot = props.shoespot;
+
 gltfloader.load(
   '/models/shoe.glb',
   function (gltf) {
@@ -52,10 +61,6 @@ gltfloader.load(
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Adjust the intensity (e.g., 0.8)
 scene.add(ambientLight);
 
-// Use the shoespot prop
-const props = defineProps({
-  shoespot: Number
-});
 
 //define lets
 let change = false;

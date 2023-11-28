@@ -4,10 +4,15 @@ import Choose from './components/Choose.vue';
 import { ref } from 'vue';
 
 let shoespot = ref(0);
+let color = ref("#ffffff");
 
 const updateShoespot = (newShoespot) => {
   shoespot.value = newShoespot;
 };
+const updateColor = (newColor) => {
+  color.value = newColor;
+};
+
 </script>
 
 <template>
@@ -17,9 +22,9 @@ const updateShoespot = (newShoespot) => {
   <div id="shoeinfo">
     <h1>Shoe Configurator</h1>
   </div>
-  <Shoe id="shoe" :shoespot="shoespot" />
+  <Shoe id="shoe" :shoespot="shoespot" :color="color" />
   <div id="choose">
-    <Choose @shoespot-changed="updateShoespot"/>
+    <Choose @shoespot-changed="updateShoespot" @color-changed="updateColor"/>
   </div>
 </template>
 

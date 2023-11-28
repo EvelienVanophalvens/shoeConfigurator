@@ -13,7 +13,7 @@
 
 
     //define emit function
-    const emit = defineEmits(['shoespot-changed']);
+    const emit = defineEmits(['shoespot-changed', 'color-changed']);
     const next = () => {
         if (shoespot.value < shoespots.length -1) {
             shoespot.value++;
@@ -60,6 +60,13 @@
     }
     }
     updateColors();
+
+    const setColor = (color, e) => {
+        emit('color-changed', color);
+
+    }
+
+
 </script>
 <template>
     <div class="center">
@@ -71,7 +78,7 @@
         </div>
         <div>
             <ul class="colors"> 
-                <li v-for="c in colors" :style="{ backgroundColor: c }"></li>
+                <li v-for="c in colors" :style="{ backgroundColor: c }" @click="setColor(c)"></li>
             </ul>
         </div>
     </div>
