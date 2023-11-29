@@ -22,7 +22,7 @@ controls.enablePan = false;
 //stop pan controls
 controls.enablePan = false;
 //minimum distance from the object
-controls.minDistance = 0.3;
+controls.minDistance = 0.2;
 //maximum distance from the object
 controls.maxDistance =0.5;
 
