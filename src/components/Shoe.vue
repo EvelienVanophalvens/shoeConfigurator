@@ -34,13 +34,15 @@ const roughnessTexture = textureLoader.load('/textures/leatherMaterial/brown_lea
 const map = textureLoader.load('/textures/leatherMaterial/brown_leather_albedo_4k.jpg');
 */
 
+//load polyester texture for shoe with displacement map, normal map, and roughness map, and ao map
+/*const textureLoader = new THREE.TextureLoader();
+const normalTexture = textureLoader.load('/textures/poylester/Fabric_polyester_001_normal.jpg');
+const aoTexture = textureLoader.load('/textures/poylester/Fabric_polyester_001_ambientOcclusion.jpg');
+const displacementTexture = textureLoader.load('/poylester/leatherMaterial/Fabric_polyester_001_height.png');
+const roughnessTexture = textureLoader.load('/poylester/leatherMaterial/Fabric_polyester_001_roughness.jpg');
+const map = textureLoader.load('/textures/poylester/Fabric_polyester_001_basecolor.jpg');*/
+
 //load leatherMaterial texture for shoe with displacement map, normal map, and roughness map, and ao map
-const textureLoader = new THREE.TextureLoader();
-const normalTexture = textureLoader.load('/textures/leatherMaterial/Fabric_polyester_001_normal.jpg');
-const aoTexture = textureLoader.load('/textures/leatherMaterial/Fabric_polyester_001_ambientOcclusion.jpg');
-const displacementTexture = textureLoader.load('/textures/leatherMaterial/Fabric_polyester_001_height.png');
-const roughnessTexture = textureLoader.load('/textures/leatherMaterial/Fabric_polyester_001_roughness.jpg');
-const map = textureLoader.load('/textures/leatherMaterial/Fabric_polyester_001_basecolor.jpg');
 
 
 
