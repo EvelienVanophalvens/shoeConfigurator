@@ -20,7 +20,12 @@ controls.minDistance = 0.3;
 //maximum distance from the object
 controls.maxDistance = 0.5;
 
-
+//load leatherMaterial texture for shoe with displacement map, normal map, and roughness map, and ao map
+const textureLoader = new THREE.TextureLoader();
+const normalTexture = textureLoader.load('/textures/leatherMaterial/brown_leather_nor_gl_4k.jpg');
+const aoTexture = textureLoader.load('/textures/leatherMaterial/brown_leather_ao_4K.jpg');
+const displacementTexture = textureLoader.load('/textures/leatherMaterial/leather_disp_4k.jpg');
+const roughnessTexture = textureLoader.load('/textures/leatherMaterial/brown_leather_rough_4k.jpg');
 
 
 
@@ -43,6 +48,16 @@ gltfloader.load(
     shoe = gltf.scene;
     controls.target.set(shoe.position.x, shoe.position.y, shoe.position.z);
     shoe.scale.set(1, 1, 1);
+    //set leatherMaterial texture for shoe on inside
+      shoe["children"][0]["children"][0].material = new THREE.MeshStandardMaterial({ 
+      map: textureLoader.load('/textures/leatherMaterial/brown_leather_albedo_4k.jpg'),
+      normalMap: normalTexture, 
+      aoMap: aoTexture, 
+      displacementMap: displacementTexture, 
+      displacementScale: 0,
+      roughnessMap: roughnessTexture,
+      roughness: 0.5,
+     });
 
     //color the shoe
     //inside
@@ -93,7 +108,7 @@ gltfloader.load(
   },
 );
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Adjust the intensity (e.g., 0.8)
+const ambientLight = new THREE.AmbientLight(0xffffff, 08); // Adjust the intensity (e.g., 0.8)
 scene.add(ambientLight);
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8); // Adjust the intensity (e.g., 0.8)
