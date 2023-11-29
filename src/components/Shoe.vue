@@ -16,7 +16,8 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 scene.background = new THREE.Color(0xffffff);
 const controls = new OrbitControls(camera, renderer.domElement);
-
+controls.maxPolarAngle = Math.PI / 2;
+controls.enablePan = false;
 
 //stop pan controls
 controls.enablePan = false;
