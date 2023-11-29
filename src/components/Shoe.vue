@@ -10,13 +10,18 @@ let shoe;
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
-
+//enable shadows
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 scene.background = new THREE.Color(0xffffff);
 const controls = new OrbitControls(camera, renderer.domElement);
+controls.maxPolarAngle = Math.PI / 2;
+controls.enablePan = false;
+
 //stop pan controls
 controls.enablePan = false;
 //minimum distance from the object
-controls.minDistance = 0.3;
+controls.minDistance = 0.2;
 //maximum distance from the object
 controls.maxDistance = 0.5;
 
@@ -29,6 +34,7 @@ const roughnessTexture = textureLoader.load('/textures/leatherMaterial/brown_lea
 
 
 
+controls.maxDistance =0.5;
 
 //load gltf model
 const gltfloader = new GLTFLoader();
@@ -58,6 +64,16 @@ gltfloader.load(
       roughnessMap: roughnessTexture,
       roughness: 0.5,
      });
+    shoe.scale.set(0.5, 0.5, 0.5);
+    //cast shadow to plane
+    console.log(shoe);
+
+    //add shadows to children
+    shoe.traverse((child) => {
+      if (child.isMesh) {
+        child.castShadow = true;
+      }
+    });
 
     //color the shoe
     //inside
@@ -108,14 +124,32 @@ gltfloader.load(
   },
 );
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 08); // Adjust the intensity (e.g., 0.8)
+
+const geometry = new THREE.PlaneGeometry( 2000, 2000 );
+geometry.rotateX( - Math.PI / 2 );
+
+const material = new THREE.ShadowMaterial();
+material.opacity = 0.4;
+
+const plane = new THREE.Mesh( geometry, material );
+plane.receiveShadow = true;
+plane.position.y = -0.05;
+scene.add( plane );
+
+
+const ambientLight = new THREE.AmbientLight(0xffffff, 1); // Adjust the intensity (e.g., 0.8)
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8); // Adjust the intensity (e.g., 0.8)
-directionalLight.position.set(1, 1, 1);
+//add directional light with shadows
+const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+directionalLight.position.set(0, 1, 0);
+directionalLight.castShadow = true;
+//add helper
+
+directionalLight.castShadow = true
+
+
 scene.add(directionalLight);
-
-
 
 //define lets
 let change = false;
