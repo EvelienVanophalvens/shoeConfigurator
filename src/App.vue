@@ -25,7 +25,7 @@ const updateMaterial = (newMaterial) => {
     <img src="./assets/SWEAR_Logo.png" alt="swear logo">
   </div>
   <div id="shoeinfo">
-    <h1>Shoe Configurator</h1>
+    <h1>air rev nitro’s </h1>
   </div>
   <Shoe id="shoe" :shoespot="shoespot" :color="color" :material="material" />
   <div id="choose">

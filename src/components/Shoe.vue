@@ -2,7 +2,6 @@
 import { watch, ref, onMounted } from 'vue';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 
 const scene = new THREE.Scene();
@@ -14,7 +13,6 @@ document.body.appendChild(renderer.domElement);
 //enable shadows
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-scene.background = new THREE.Color(0xffffff);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.maxPolarAngle = Math.PI / 2;
 controls.enablePan = false;
@@ -23,8 +21,17 @@ controls.enablePan = false;
 controls.enablePan = false;
 //minimum distance from the object
 controls.minDistance = 0.2;
-//maximum distance from the object
-controls.maxDistance = 0.5;
+
+controls.maxDistance =0.5;
+
+// Create a CubeTextureLoader
+const cubeTextureLoader = new THREE.CubeTextureLoader();
+
+
+
+
+//load gltf model
+const gltfloader = new GLTFLoader();
 
 // Use the prop
 const props = defineProps({
@@ -154,6 +161,21 @@ gltfloader.load(
    
 
     scene.add(shoe);
+    // Load the cube textures
+cubeTextureLoader.load(
+  [
+    'cubemap/px.png',
+    'cubemap/nx.png',
+    'cubemap/py.png',
+    'cubemap/ny.png',
+    'cubemap/pz.png',
+    'cubemap/nz.png',
+  ],
+  function (textureCube) {
+    // Set the scene's background to the loaded cube texture
+    scene.background = textureCube;
+  }
+);
   },
 );
 
@@ -177,10 +199,18 @@ scene.add(ambientLight);
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
 directionalLight.position.set(0, 1, 0);
 directionalLight.castShadow = true;
-//add helper
+// Add this after defining your directional light
+directionalLight.shadow.mapSize.width = 5120; // default is 512, increase for higher resolution
+directionalLight.shadow.mapSize.height = 5120; // default is 512, increase for higher resolution
 
-directionalLight.castShadow = true
+// Add this after defining your directional light
+directionalLight.shadow.camera.left = -1; // default is -5, increase for more spread
+directionalLight.shadow.camera.right = 1; // default is 5, increase for more spread
+directionalLight.shadow.camera.top = 1; // default is 5, increase for more spread
+directionalLight.shadow.camera.bottom = -1; // default is -5, increase for more spread
 
+// Always necessary after changing any of the shadow camera properties
+directionalLight.shadow.camera.updateProjectionMatrix();
 
 scene.add(directionalLight);
 
