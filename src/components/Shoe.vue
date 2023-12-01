@@ -1,8 +1,9 @@
 <script setup>
-import { watch, ref } from 'vue';
+import { watch, ref, onMounted } from 'vue';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -35,35 +36,20 @@ const props = defineProps({
 let color = props.color;
 
 let texture = props.material;
-
-watch(() => props.material, (newMaterial) => {
-  texture = newMaterial;
-  console.log(texture);
+let textureLoader;
+let normalTexture;
+let aoTexture;
+let displacementTexture;
+let roughnessTexture;
+let map;
+onMounted(() => {
+  textureLoader = new THREE.TextureLoader();
+  normalTexture = textureLoader.load('/textures/leatherMaterial/brown_leather_nor_gl_4k.jpg');
+  aoTexture = textureLoader.load('/textures/leatherMaterial/brown_leather_ao_4K.jpg');
+  displacementTexture = textureLoader.load('/textures/leatherMaterial/leather_disp_4k.jpg');
+  roughnessTexture = textureLoader.load('/textures/leatherMaterial/brown_leather_rough_4k.jpg');
+  map = textureLoader.load('/textures/leatherMaterial/brown_leather_albedo_4k.jpg');
 });
-
-
-
-
-
-//load leatherMaterial texture for shoe with displacement map, normal map, and roughness map, and ao map
-/*const textureLoader = new THREE.TextureLoader();
-const normalTexture = textureLoader.load('/textures/leatherMaterial/brown_leather_nor_gl_4k.jpg');
-const aoTexture = textureLoader.load('/textures/leatherMaterial/brown_leather_ao_4K.jpg');
-const displacementTexture = textureLoader.load('/textures/leatherMaterial/leather_disp_4k.jpg');
-const roughnessTexture = textureLoader.load('/textures/leatherMaterial/brown_leather_rough_4k.jpg');
-const map = textureLoader.load('/textures/leatherMaterial/brown_leather_albedo_4k.jpg');*/
-
-
-//load polyester texture for shoe with displacement map, normal map, and roughness map, and ao map
-const textureLoader = new THREE.TextureLoader();
-const normalTexture = textureLoader.load('/textures/poylester/Fabric_polyester_001_normal.jpg');
-const aoTexture = textureLoader.load('/textures/poylester/Fabric_polyester_001_ambientOcclusion.jpg');
-const displacementTexture = textureLoader.load('/poylester/leatherMaterial/Fabric_polyester_001_height.png');
-const roughnessTexture = textureLoader.load('/poylester/leatherMaterial/Fabric_polyester_001_roughness.jpg');
-const map = textureLoader.load('/textures/poylester/Fabric_polyester_001_basecolor.jpg');
-
-
-
 //load gltf model
 const gltfloader = new GLTFLoader();
 
@@ -76,16 +62,43 @@ gltfloader.load(
     shoe = gltf.scene;
     controls.target.set(shoe.position.x, shoe.position.y, shoe.position.z);
     shoe.scale.set(1, 1, 1);
-    //set leatherMaterial texture for shoe on inside
+    watch(() => props.material, (newMaterial) => {
+  //make a switch statement to change the material of the shoe
+  switch(newMaterial){
+    case "Leather":
+      console.log("leather");
+      textureLoader = new THREE.TextureLoader();
       shoe["children"][0]["children"][0].material = new THREE.MeshStandardMaterial({ 
-      normalMap: normalTexture, 
-      aoMap: aoTexture, 
-      displacementMap: displacementTexture, 
+      normalMap:  textureLoader.load('/textures/leatherMaterial/brown_leather_nor_gl_4k.jpg'), 
+      aoMap: textureLoader.load('/textures/leatherMaterial/brown_leather_ao_4K.jpg'), 
+      displacementMap: textureLoader.load('/textures/leatherMaterial/leather_disp_4k.jpg'), 
       displacementScale: 0,
-      roughnessMap: roughnessTexture,
+      roughnessMap: textureLoader.load('/textures/leatherMaterial/brown_leather_rough_4k.jpg'),
       roughness: 1,
-      map: map,
+      map: textureLoader.load('/textures/leatherMaterial/brown_leather_albedo_4k.jpg'),
      });
+      
+    break;
+    case "Polyester":
+      console.log("polyester");
+      textureLoader = new THREE.TextureLoader();
+      shoe["children"][0]["children"][0].material = new THREE.MeshStandardMaterial({ 
+      normalMap: textureLoader.load('/textures/poylester/Fabric_polyester_001_normal.jpg'), 
+      aoMap: textureLoader.load('/textures/poylester/Fabric_polyester_001_ambientOcclusion.jpg'), 
+      displacementMap: textureLoader.load('/poylester/leatherMaterial/Fabric_polyester_001_height.png'), 
+      displacementScale: 0,
+      roughnessMap: textureLoader.load('/poylester/leatherMaterial/Fabric_polyester_001_roughness.jpg'),
+      roughness: 1,
+      map: textureLoader.load('/textures/poylester/Fabric_polyester_001_basecolor.jpg'),
+     });
+
+
+    break;
+  }
+
+});
+    //set leatherMaterial texture for shoe on inside
+      
     shoe.scale.set(0.5, 0.5, 0.5);
     //cast shadow to plane
     console.log(shoe);
