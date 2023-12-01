@@ -2,6 +2,7 @@
 import { watch, ref, onMounted } from 'vue';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 
 const scene = new THREE.Scene();
@@ -30,8 +31,6 @@ const cubeTextureLoader = new THREE.CubeTextureLoader();
 
 
 
-//load gltf model
-const gltfloader = new GLTFLoader();
 
 // Use the prop
 const props = defineProps({
