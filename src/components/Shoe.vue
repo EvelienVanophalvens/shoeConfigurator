@@ -1,8 +1,8 @@
 <script setup>
-import { watch, ref } from 'vue';
+import { watch, ref, onMounted } from 'vue';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -21,7 +21,7 @@ controls.enablePan = false;
 controls.enablePan = false;
 //minimum distance from the object
 controls.minDistance = 0.2;
-//maximum distance from the object
+
 controls.maxDistance =0.5;
 
 // Create a CubeTextureLoader
@@ -33,20 +33,79 @@ const cubeTextureLoader = new THREE.CubeTextureLoader();
 //load gltf model
 const gltfloader = new GLTFLoader();
 
-
 // Use the prop
 const props = defineProps({
   shoespot: Number,
-  color: String
+  color: String,
+  material: String
 });
 
 let color = props.color;
+
+let texture = props.material;
+let textureLoader;
+let normalTexture;
+let aoTexture;
+let displacementTexture;
+let roughnessTexture;
+let map;
+onMounted(() => {
+  textureLoader = new THREE.TextureLoader();
+  normalTexture = textureLoader.load('/textures/leatherMaterial/brown_leather_nor_gl_4k.jpg');
+  aoTexture = textureLoader.load('/textures/leatherMaterial/brown_leather_ao_4K.jpg');
+  displacementTexture = textureLoader.load('/textures/leatherMaterial/leather_disp_4k.jpg');
+  roughnessTexture = textureLoader.load('/textures/leatherMaterial/brown_leather_rough_4k.jpg');
+  map = textureLoader.load('/textures/leatherMaterial/brown_leather_albedo_4k.jpg');
+});
+//load gltf model
+const gltfloader = new GLTFLoader();
+
+
+
 
 gltfloader.load(
   '/models/shoe.glb',
   function (gltf) {
     shoe = gltf.scene;
     controls.target.set(shoe.position.x, shoe.position.y, shoe.position.z);
+    shoe.scale.set(1, 1, 1);
+    watch(() => props.material, (newMaterial) => {
+  //make a switch statement to change the material of the shoe
+  switch(newMaterial){
+    case "Leather":
+      console.log("leather");
+      textureLoader = new THREE.TextureLoader();
+      shoe["children"][0]["children"][0].material = new THREE.MeshStandardMaterial({ 
+      normalMap:  textureLoader.load('/textures/leatherMaterial/brown_leather_nor_gl_4k.jpg'), 
+      aoMap: textureLoader.load('/textures/leatherMaterial/brown_leather_ao_4K.jpg'), 
+      displacementMap: textureLoader.load('/textures/leatherMaterial/leather_disp_4k.jpg'), 
+      displacementScale: 0,
+      roughnessMap: textureLoader.load('/textures/leatherMaterial/brown_leather_rough_4k.jpg'),
+      roughness: 1,
+      map: textureLoader.load('/textures/leatherMaterial/brown_leather_albedo_4k.jpg'),
+     });
+      
+    break;
+    case "Polyester":
+      console.log("polyester");
+      textureLoader = new THREE.TextureLoader();
+      shoe["children"][0]["children"][0].material = new THREE.MeshStandardMaterial({ 
+      normalMap: textureLoader.load('/textures/poylester/Fabric_polyester_001_normal.jpg'), 
+      aoMap: textureLoader.load('/textures/poylester/Fabric_polyester_001_ambientOcclusion.jpg'), 
+      displacementMap: textureLoader.load('/poylester/leatherMaterial/Fabric_polyester_001_height.png'), 
+      displacementScale: 0,
+      roughnessMap: textureLoader.load('/poylester/leatherMaterial/Fabric_polyester_001_roughness.jpg'),
+      roughness: 1,
+      map: textureLoader.load('/textures/poylester/Fabric_polyester_001_basecolor.jpg'),
+     });
+
+
+    break;
+  }
+
+});
+    //set leatherMaterial texture for shoe on inside
+      
     shoe.scale.set(0.5, 0.5, 0.5);
     //cast shadow to plane
     console.log(shoe);
@@ -73,10 +132,8 @@ gltfloader.load(
     shoe["children"][0]["children"][5].material.color.setHex(0xffffff);
     //soleTop + lips
     shoe["children"][0]["children"][6].material.color.setHex(0xffffff);
-    console.log(color);
     watch(() => props.color, (newColor) => {
       color = parseInt("0x"+newColor);
-      console.log(color);
       console.log(props.shoespot);
       switch(props.shoespot) {
       case 0:
@@ -123,7 +180,6 @@ cubeTextureLoader.load(
 );
 
 
-
 const geometry = new THREE.PlaneGeometry( 2000, 2000 );
 geometry.rotateX( - Math.PI / 2 );
 
@@ -136,11 +192,11 @@ plane.position.y = -0.05;
 scene.add( plane );
 
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // Adjust the intensity (e.g., 0.8)
+const ambientLight = new THREE.AmbientLight(0xffffff, 1.5); // Adjust the intensity (e.g., 0.8)
 scene.add(ambientLight);
 
 //add directional light with shadows
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
 directionalLight.position.set(0, 1, 0);
 directionalLight.castShadow = true;
 // Add this after defining your directional light
@@ -157,16 +213,6 @@ directionalLight.shadow.camera.bottom = -1; // default is -5, increase for more 
 directionalLight.shadow.camera.updateProjectionMatrix();
 
 scene.add(directionalLight);
-
-
-
-
-
-
-
-
-
-
 
 //define lets
 let change = false;
