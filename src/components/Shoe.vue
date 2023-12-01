@@ -31,22 +31,18 @@ const normalTexture = textureLoader.load('/textures/leatherMaterial/brown_leathe
 const aoTexture = textureLoader.load('/textures/leatherMaterial/brown_leather_ao_4K.jpg');
 const displacementTexture = textureLoader.load('/textures/leatherMaterial/leather_disp_4k.jpg');
 const roughnessTexture = textureLoader.load('/textures/leatherMaterial/brown_leather_rough_4k.jpg');
-const map = textureLoader.load('/textures/leatherMaterial/brown_leather_albedo_4k.jpg');
-*/
+const map = textureLoader.load('/textures/leatherMaterial/brown_leather_albedo_4k.jpg');*/
+
 
 //load polyester texture for shoe with displacement map, normal map, and roughness map, and ao map
-/*const textureLoader = new THREE.TextureLoader();
+const textureLoader = new THREE.TextureLoader();
 const normalTexture = textureLoader.load('/textures/poylester/Fabric_polyester_001_normal.jpg');
 const aoTexture = textureLoader.load('/textures/poylester/Fabric_polyester_001_ambientOcclusion.jpg');
 const displacementTexture = textureLoader.load('/poylester/leatherMaterial/Fabric_polyester_001_height.png');
 const roughnessTexture = textureLoader.load('/poylester/leatherMaterial/Fabric_polyester_001_roughness.jpg');
-const map = textureLoader.load('/textures/poylester/Fabric_polyester_001_basecolor.jpg');*/
-
-//load leatherMaterial texture for shoe with displacement map, normal map, and roughness map, and ao map
+const map = textureLoader.load('/textures/poylester/Fabric_polyester_001_basecolor.jpg');
 
 
-
-controls.maxDistance =0.5;
 
 //load gltf model
 const gltfloader = new GLTFLoader();
@@ -68,13 +64,13 @@ gltfloader.load(
     shoe.scale.set(1, 1, 1);
     //set leatherMaterial texture for shoe on inside
       shoe["children"][0]["children"][0].material = new THREE.MeshStandardMaterial({ 
-      map: map,
       normalMap: normalTexture, 
       aoMap: aoTexture, 
       displacementMap: displacementTexture, 
       displacementScale: 0,
       roughnessMap: roughnessTexture,
-      roughness: 0.5,
+      roughness: 1,
+      map: map,
      });
     shoe.scale.set(0.5, 0.5, 0.5);
     //cast shadow to plane
@@ -149,11 +145,11 @@ plane.position.y = -0.05;
 scene.add( plane );
 
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 1); // Adjust the intensity (e.g., 0.8)
+const ambientLight = new THREE.AmbientLight(0xffffff, 1.5); // Adjust the intensity (e.g., 0.8)
 scene.add(ambientLight);
 
 //add directional light with shadows
-const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
 directionalLight.position.set(0, 1, 0);
 directionalLight.castShadow = true;
 //add helper

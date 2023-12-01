@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, defineEmits } from 'vue';
+    import { ref, defineEmits, computed } from 'vue';
     const shoespots = ["Laces", "Outsole", "Midsole", "Outer material", "Mid material", "Inner material"];
     let shoespot = ref(0);
     let colors = ref(0);
@@ -67,6 +67,14 @@
 
     }
 
+    //material only for inner material
+    const isInnerMaterial = computed(() => shoespots[shoespot.value] === "Inner material");
+    //make an array of the following materials: leather, polyester
+    let  materials = ["Leather", "Polyester"];
+    let material = ref(0);
+
+
+
 
 </script>
 <template>
@@ -75,7 +83,11 @@
             <svg class="pointer" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" @click="next"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg>
             <p id="shoespotindicator">Laces</p>
             <svg class="pointer" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512" @click="back"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
-        
+        </div>
+        <div v-show="isInnerMaterial">
+            <ul class="materials"> 
+                <li v-for="m in materials">{{m}}</li>
+            </ul>
         </div>
         <div>
             <ul class="colors"> 
@@ -123,7 +135,7 @@ ul{
     display: flex;
     flex-direction: row;
 }
-li {
+.colors li {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -133,5 +145,24 @@ li {
     border-style: solid;
     border-width: 2px;
 
+}
+.materials li{
+    width: 150px;
+    height: 30px;
+    list-style-type: none;
+    margin: 0.5em;
+    border: #D6D0C5;
+    border-style: solid;
+    border-width: 2px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    text-align: center;
+    line-height: 30px;
+}
+
+.materials li:hover{
+    border: #D6FF38 solid 2px;
+    color: #D6FF38;
 }
 </style>
