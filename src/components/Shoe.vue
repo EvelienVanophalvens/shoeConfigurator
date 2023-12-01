@@ -124,10 +124,18 @@ scene.add(ambientLight);
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
 directionalLight.position.set(0, 1, 0);
 directionalLight.castShadow = true;
-//add helper
+// Add this after defining your directional light
+directionalLight.shadow.mapSize.width = 5120; // default is 512, increase for higher resolution
+directionalLight.shadow.mapSize.height = 5120; // default is 512, increase for higher resolution
 
-directionalLight.castShadow = true
+// Add this after defining your directional light
+directionalLight.shadow.camera.left = -1; // default is -5, increase for more spread
+directionalLight.shadow.camera.right = 1; // default is 5, increase for more spread
+directionalLight.shadow.camera.top = 1; // default is 5, increase for more spread
+directionalLight.shadow.camera.bottom = -1; // default is -5, increase for more spread
 
+// Always necessary after changing any of the shadow camera properties
+directionalLight.shadow.camera.updateProjectionMatrix();
 
 scene.add(directionalLight);
 
