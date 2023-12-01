@@ -5,12 +5,17 @@ import { ref } from 'vue';
 
 let shoespot = ref(0);
 let color = ref("#ffffff");
+let material = ref("");
 
 const updateShoespot = (newShoespot) => {
   shoespot.value = newShoespot;
 };
 const updateColor = (newColor) => {
   color.value = newColor;
+};
+
+const updateMaterial = (newMaterial) => {
+  material.value = newMaterial;
 };
 
 </script>
@@ -22,9 +27,9 @@ const updateColor = (newColor) => {
   <div id="shoeinfo">
     <h1>Shoe Configurator</h1>
   </div>
-  <Shoe id="shoe" :shoespot="shoespot" :color="color" />
+  <Shoe id="shoe" :shoespot="shoespot" :color="color" :material="material" />
   <div id="choose">
-    <Choose @shoespot-changed="updateShoespot" @color-changed="updateColor"/>
+    <Choose @shoespot-changed="updateShoespot" @color-changed="updateColor" @material-changed="updateMaterial"/>
   </div>
 </template>
 

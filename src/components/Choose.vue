@@ -13,7 +13,7 @@
 
 
     //define emit function
-    const emit = defineEmits(['shoespot-changed', 'color-changed']);
+    const emit = defineEmits(['shoespot-changed', 'color-changed', 'material-changed']);
     const next = () => {
         if (shoespot.value < shoespots.length -1) {
             shoespot.value++;
@@ -73,6 +73,11 @@
     let  materials = ["Leather", "Polyester"];
     let material = ref(0);
 
+    const setMaterial = (m) => {
+        material.value = m;
+        emit('material-changed', material.value);
+    }
+
 
 
 
@@ -86,7 +91,7 @@
         </div>
         <div v-show="isInnerMaterial">
             <ul class="materials"> 
-                <li v-for="m in materials">{{m}}</li>
+                <li v-for="m in materials" @click="setMaterial(m)">{{m}}</li>
             </ul>
         </div>
         <div>

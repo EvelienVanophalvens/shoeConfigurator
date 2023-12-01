@@ -25,6 +25,26 @@ controls.minDistance = 0.2;
 //maximum distance from the object
 controls.maxDistance = 0.5;
 
+// Use the prop
+const props = defineProps({
+  shoespot: Number,
+  color: String,
+  material: String
+});
+
+let color = props.color;
+
+let texture = props.material;
+
+watch(() => props.material, (newMaterial) => {
+  texture = newMaterial;
+  console.log(texture);
+});
+
+
+
+
+
 //load leatherMaterial texture for shoe with displacement map, normal map, and roughness map, and ao map
 /*const textureLoader = new THREE.TextureLoader();
 const normalTexture = textureLoader.load('/textures/leatherMaterial/brown_leather_nor_gl_4k.jpg');
@@ -48,13 +68,7 @@ const map = textureLoader.load('/textures/poylester/Fabric_polyester_001_basecol
 const gltfloader = new GLTFLoader();
 
 
-// Use the prop
-const props = defineProps({
-  shoespot: Number,
-  color: String
-});
 
-let color = props.color;
 
 gltfloader.load(
   '/models/shoe.glb',
@@ -98,10 +112,8 @@ gltfloader.load(
     shoe["children"][0]["children"][5].material.color.setHex(0xffffff);
     //soleTop + lips
     shoe["children"][0]["children"][6].material.color.setHex(0xffffff);
-    console.log(color);
     watch(() => props.color, (newColor) => {
       color = parseInt("0x"+newColor);
-      console.log(color);
       console.log(props.shoespot);
       switch(props.shoespot) {
       case 0:
