@@ -4,11 +4,17 @@ const shoesizes = ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"];
 </script>
 <template>
     <div class="container">
+        <div class="btnBack">
+            <a href="#" @click.prevent="goToPrevieusPage">back</a>
+        </div>
         <h1>Shoe Size</h1>
         <div id="shoesizeContainer" >
             <div id="shoesize" v-for="shoesize in shoesizes" :key="shoesize" @click="setShoeSize(shoesize)">
                 <p>{{ shoesize }}</p>
             </div>
+        </div>
+        <div class="btn">
+            <a href="#" @click.prevent="goToNextPage">Next</a>
         </div>
     </div>
 </template>
@@ -48,4 +54,37 @@ const shoesizes = ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"];
         justify-content: center;
         align-items: center;
     }
+    a{
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.btn{
+    display: inline-block;
+    background-color: #D6FF38;
+    width: 100px;
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 20px; 
+    text-align: center;
+    line-height: 50px;
+    
+}
+.btnBack{
+    display: inline-block;
+    background-color: #D6FF38;
+    width: 100px;
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 20px; 
+    text-align: center;
+    line-height: 50px;
+    
+}
 </style>
