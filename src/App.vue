@@ -31,7 +31,13 @@ const updateMaterial = (newMaterial) => {
   </div>
   <Shoe id="shoe" :shoespot="shoespot" :color="color" :material="material" />
   <div id="choose">
-    <Choose @shoespot-changed="updateShoespot" @color-changed="updateColor" @material-changed="updateMaterial"/>
+    <router-view 
+      v-if="$route.path === '/'" 
+      @shoespot-changed="updateShoespot" 
+      @color-changed="updateColor" 
+      @material-changed="updateMaterial"
+    />
+    <router-view v-else />
   </div>
 </template>
 
