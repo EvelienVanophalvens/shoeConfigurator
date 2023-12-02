@@ -1,5 +1,6 @@
 <script setup>
     import { ref, defineEmits, computed } from 'vue';
+    import { useRouter } from 'vue-router'
     const shoespots = ["Laces", "Outsole", "Midsole", "Outer material", "Mid material", "Inner material"];
     let shoespot = ref(0);
     let colors = ref(0);
@@ -78,7 +79,11 @@
         emit('material-changed', material.value);
     }
 
+    const router = useRouter()
 
+    const goToNextPage = () => {
+        router.push('/shoeSize')
+    }
 
 
 </script>
@@ -101,7 +106,7 @@
         </div>
     </div>
     <div class="btn">
-        <a href="#">Next</a>
+        <a href="#" @click.prevent="goToNextPage">Next</a>
     </div>
 </template>
 <style scoped>
