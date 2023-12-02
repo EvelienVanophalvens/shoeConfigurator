@@ -21,11 +21,13 @@ const updateMaterial = (newMaterial) => {
 </script>
 
 <template>
-  <div id="nav">
-    <img src="./assets/SWEAR_Logo.png" alt="swear logo">
-  </div>
-  <div id="shoeinfo">
-    <h1>air rev nitro’s </h1>
+  <div id="header">
+    <div id="nav">
+      <img src="./assets/SWEAR_Logo.png" alt="swear logo">
+    </div>
+    <div id="shoeinfo">
+      <h1>air rev nitro’s </h1>
+    </div>
   </div>
   <Shoe id="shoe" :shoespot="shoespot" :color="color" :material="material" />
   <div id="choose">
@@ -43,9 +45,6 @@ const updateMaterial = (newMaterial) => {
 }
 
 #nav {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: auto;
   background-color: #D6FF38;
   display: flex;
@@ -59,18 +58,30 @@ const updateMaterial = (newMaterial) => {
 }
 
 #shoeinfo {
-  position: absolute;
-  top: 0;
-  right: 0;
+  display: inline-block;
   width: auto;
-  display: flex;
-  justify-content: space-between;
-  margin: 20px;
+  height: 61px;
+  margin-right: 20px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 61px;
+
+
 }
 #shoeinfo h1{
   font-size: 24px;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
+}
+#header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 61px;
+  background-color: #ffff;
+
 }
 </style>
