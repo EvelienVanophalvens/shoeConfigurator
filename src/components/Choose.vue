@@ -100,6 +100,9 @@
             </ul>
         </div>
     </div>
+    <div class="btn">
+        <a href="#">Next</a>
+    </div>
 </template>
 <style scoped>
 .center {
@@ -169,5 +172,25 @@ ul{
 .materials li:hover{
     border: #D6FF38 solid 2px;
     color: #D6FF38;
+}
+a{
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.btn{
+    display: inline-block;
+    background-color: #D6FF38;
+    width: 100px;
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 20px; 
+    text-align: center;
+    line-height: 50px;
+    
 }
 </style>
