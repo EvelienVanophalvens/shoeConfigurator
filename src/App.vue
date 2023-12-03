@@ -54,10 +54,6 @@ watch(() => route.path, (newPath) => {
 </template>
 
 <style scoped>
-#choose {
-
-}
-
 #nav {
   width: auto;
   background-color: #D6FF38;
