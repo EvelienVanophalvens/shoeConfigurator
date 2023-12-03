@@ -1,6 +1,17 @@
 <script setup>
+import { useRouter } from 'vue-router'
 //make a list of shoe sizes
 const shoesizes = ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"];
+
+//go back to choose page
+const router = useRouter();
+const goToPrevieusPage = () => {
+    router.push('/');
+}
+const goToNextPage = () => {
+    router.push('/info');
+}
+
 </script>
 <template>
     <div class="container">
