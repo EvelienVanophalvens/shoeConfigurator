@@ -55,11 +55,7 @@ watch(() => route.path, (newPath) => {
 
 <style scoped>
 #choose {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: black;
+
 }
 
 #nav {
