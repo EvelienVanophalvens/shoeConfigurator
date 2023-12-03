@@ -1,7 +1,8 @@
 <script setup>
 import Shoe from './components/Shoe.vue';
 import Choose from './components/Choose.vue';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
 let shoespot = ref(0);
 let color = ref("#ffffff");
@@ -17,6 +18,17 @@ const updateColor = (newColor) => {
 const updateMaterial = (newMaterial) => {
   material.value = newMaterial;
 };
+
+const route = useRoute()
+
+watch(() => route.path, (newPath) => {
+  const canvasElement = document.querySelector('canvas');
+  if (canvasElement) {
+    canvasElement.style.display = newPath === '/info' ? 'none' : 'block';
+  }
+}, { immediate: true })
+
+
 
 </script>
 
