@@ -3,6 +3,7 @@ import { watch, ref, onMounted } from 'vue';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { Quaternion, Euler } from 'three';
 
 
 const scene = new THREE.Scene();
@@ -21,7 +22,7 @@ controls.enablePan = false;
 //stop pan controls
 controls.enablePan = false;
 //minimum distance from the object
-controls.minDistance = 0.2;
+controls.minDistance = 0.3;
 
 controls.maxDistance =0.5;
 
@@ -104,8 +105,7 @@ gltfloader.load(
 
 });
     //set leatherMaterial texture for shoe on inside
-      
-    shoe.scale.set(0.5, 0.5, 0.5);
+    
     //cast shadow to plane
     console.log(shoe);
 
@@ -216,81 +216,93 @@ scene.add(directionalLight);
 //define lets
 let change = false;
 
-// Define a flag for user interaction
-camera.position.z = 0.3;
-camera.position.y = 0.2;
-camera.rotation.x = Math.PI / -6;
-camera.rotation.y = 0;
-let targetCameraZ = ref(0.5);
-let targetCameraY = ref(0);
-let targetCameraRotationX = ref(0); // Add this line
-let targetShoeRotationY = ref(0); // Add this line
+//set initioal camera position
+camera.position.set(0, 0.2, 0.35);
+
+//set initial rotation
+camera.rotation.set( Math.PI/-6, 0, 0);
+
+const easeInOutCubic = (t) => (t < 0.5 ? 4 * t ** 3 : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+// Add a method to reset the camera with smooth movement and easing
+const resetCamera = () => {
+  const targetPosition = new THREE.Vector3(0, 0.2, 0.35);
+  const targetRotation = new THREE.Euler(Math.PI / -6, 0, 0);
+  const targetQuaternion = new THREE.Quaternion().setFromEuler(targetRotation);
+
+  const initialPosition = new THREE.Vector3().copy(camera.position);
+  const initialRotation = new THREE.Euler().copy(camera.rotation);
+  const initialQuaternion = new THREE.Quaternion().setFromEuler(initialRotation);
+
+  const duration = 1; // Adjust the duration as needed
+  let elapsed = 0;
+
+  const animateReset = () => {
+    elapsed += 0.016; // Assuming 60 frames per second
+
+    const t = Math.min(elapsed / duration, 1);
+    const easedT = easeInOutCubic(t);
+
+    camera.position.lerp(targetPosition, easedT);
+    
+    // Use slerp for quaternion interpolation
+    const newQuaternion = new THREE.Quaternion().slerp(targetQuaternion, easedT);
+    camera.setRotationFromQuaternion(newQuaternion);
+
+    controls.target.set(0, 0, 0);
+    controls.update();
+
+    if (elapsed < duration) {
+      requestAnimationFrame(animateReset);
+    }
+  };
+
+  // Call animateReset to start the animation
+  animateReset();
+};
+
+let targetRotation = new Quaternion();
+
 // Watch for changes in shoespot
 watch(() => props.shoespot, (newShoespot) => {
-  // Change the shoe position based on the new shoespot
+  // Change the shoe rotation based on the new shoespot
+  let euler = new Euler();
   if(newShoespot == 0){
-    camera.rotation.y = 0;
-    change = true;
-    targetCameraZ.value = 0.3; //zoom
-    targetCameraY.value = 0.2; // Move camera up
-    targetCameraRotationX.value = Math.PI / -6; // Rotate 30 degrees downward
-    targetShoeRotationY.value = 0;
-  }else if(newShoespot == 1){
-    camera.rotation.y = 0;
-    change = true;
-    targetCameraZ.value = 0.5;
-    targetCameraY.value = 0;
-    targetCameraRotationX.value = 0
-    targetShoeRotationY.value = Math.PI / 2; // Rotate shoe 90 degrees to the left
-  }else if(newShoespot == 2){
-    camera.rotation.y = 0;
-    change = true;
-    targetCameraZ.value = 0.3; //zoom
-    targetCameraY.value = 0;
-    targetCameraRotationX.value = 0;
-    targetShoeRotationY.value = Math.PI/2; // Rotate shoe 180 degrees to the left
-  }else if(newShoespot == 3){
-    change = true;
-    targetCameraZ.value = 0.3; //zoom
-    targetCameraY.value = 0.2; //move up
-    targetCameraRotationX.value =  Math.PI / -6; // Rotate 30 degrees downward
-    targetShoeRotationY.value = Math.PI/2.8; // Rotate
-  }else if(newShoespot == 4){
-    change = true;
-    targetCameraZ.value = 0.2; //zoom
-    targetCameraY.value = 0.15; //move up
-    targetCameraRotationX.value =  Math.PI / -6; // Rotate 30 degrees downward
-    targetShoeRotationY.value = Math.PI/2.8; // Rotate
-  }else if(newShoespot == 5){
-    change = true;
-    targetCameraZ.value = 0.3; //zoom
-    targetCameraY.value = 0.2; //move up
-    targetCameraRotationX.value =  Math.PI / -6; // Rotate 30 degrees downward
-    targetShoeRotationY.value = Math.PI/2; // Rotate
+    euler.set(0, 0, 0);
+    resetCamera();
+  } else if(newShoespot == 1){
+    euler.set(0, Math.PI / 2, 0);
+    resetCamera();
+  } else if(newShoespot == 2){
+    euler.set(0, Math.PI, 0);
+    resetCamera();
+  } else if(newShoespot == 3){
+    euler.set(0, -Math.PI / 2, 0);
+    resetCamera();
+  } else if(newShoespot == 4){
+    euler.set(0, -Math.PI, 0);
+    resetCamera();
+  } else if(newShoespot == 5){
+    euler.set(0, Math.PI / 2, 0);
+    resetCamera();
   }
+  targetRotation.setFromEuler(euler);
 });
 
+
+
 function animate() {
-	requestAnimationFrame( animate );
-	renderer.render( scene, camera );
-  
-  // Lerp the camera position
-  if (change == true) {
-    //animate shoe rotation reset
-    controls.enabled = false;
-    camera.position.z += (targetCameraZ.value - camera.position.z) * 0.2;
-    camera.position.y += (targetCameraY.value - camera.position.y) * 0.2; // Add this line
-    camera.rotation.x += (targetCameraRotationX.value - camera.rotation.x) * 0.2; // Add this line
-    shoe.rotation.y += (targetShoeRotationY.value - shoe.rotation.y) * 0.2; // Add this line
-    //wait until animation finishes
-    if (Math.abs(camera.position.z - targetCameraZ.value) < 0.001 && Math.abs(camera.position.y - targetCameraY.value) < 0.001 && Math.abs(camera.rotation.x - targetCameraRotationX.value) < 0.001&& Math.abs(camera.position.y - targetCameraY.value) < 0.001 && Math.abs(camera.rotation.x - targetCameraRotationX.value) < 0.001 && Math.abs(shoe.rotation.y - targetShoeRotationY.value) < 0.001) {
-      change = false;
-      controls.enabled = true;
-    }
+  requestAnimationFrame(animate);
+
+  // Check if shoe is defined before trying to access its quaternion
+  if (shoe) {
+    // Lerp the shoe rotation
+    shoe.quaternion.slerp(targetRotation, 0.1);
   }
 
-renderer.render(scene, camera);
+  renderer.render(scene, camera);
 }
+
 animate();
 </script>
 
