@@ -19,7 +19,7 @@ const updateShoespot = (newShoespot) => {
 const updateColor = (newColor) => {
   color.value = newColor;
   //make new array consisting of the color and the shoespot
-  colorAndPlace = [newColor, shoespot.value];
+  colorAndPlace.value = [newColor, shoespot.value];
   
 };
 
