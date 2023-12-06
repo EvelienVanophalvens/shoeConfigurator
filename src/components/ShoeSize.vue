@@ -1,7 +1,9 @@
 <script setup>
 import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 //make a list of shoe sizes
 const shoesizes = ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"];
+const selectedSize = ref(null);
 
 //go back to choose page
 const router = useRouter();
@@ -10,6 +12,13 @@ const goToPrevieusPage = () => {
 }
 const goToNextPage = () => {
     router.push('/info');
+}
+//on click shoesize ==> console log
+const setShoeSize = (shoesize) => {
+    // console.log(shoesize);
+    selectedSize.value = shoesize;
+    console.log(selectedSize.value);
+
 }
 
 </script>
@@ -21,7 +30,7 @@ const goToNextPage = () => {
             </div>
             <h1>Shoe Size</h1>
             <div id="shoesizeContainer" >
-                <div id="shoesize" v-for="shoesize in shoesizes" :key="shoesize" @click="setShoeSize(shoesize)">
+                <div v-for="shoesize in shoesizes" :key="shoesize" @click="setShoeSize(shoesize)" :class="{ selected: shoesize === selectedSize, unselected: shoesize !== selectedSize }">
                     <p>{{ shoesize }}</p>
                 </div>
             </div>
@@ -41,10 +50,21 @@ const goToNextPage = () => {
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
     }
-    #shoesize {
+    .unselected {
+        cursor: pointer;
         display: inline-block;
         border: white solid 2px;
         color: white;
+        width: 50px;
+        height: 50px;
+        margin: 10px;
+        text-align: center;  
+    }
+    .selected {
+        cursor: pointer;
+        display: inline-block;
+        border: #D6FF38 solid 2px;
+        color: #D6FF38;
         width: 50px;
         height: 50px;
         margin: 10px;
@@ -107,4 +127,5 @@ const goToNextPage = () => {
     left: 0;
     background-color: black;
 }
+
 </style>
