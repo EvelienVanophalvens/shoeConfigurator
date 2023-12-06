@@ -86,30 +86,6 @@
     }
 
 
-    let lastSelected = reactive({
-  color: {
-    Laces: null,
-    Outsole: null,
-    Midsole: null,
-    'Outer material': null,
-    'Mid material': null,
-    'Inner material': null,
-    Tongue: null,
-  },
-  material: {
-    Laces: null,
-    Outsole: null,
-    Midsole: null,
-    'Outer material': null,
-    'Mid material': null,
-    'Inner material': null,
-    Tongue: null,
-  },
-})
-
-// Provide the lastSelected object
-provide('lastSelected', lastSelected);
-
 
 
 </script>
