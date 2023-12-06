@@ -9,16 +9,27 @@ import { useRoute } from 'vue-router';
 let shoespot = ref(0);
 let color = ref("#ffffff");
 let material = ref("");
+let shoeSize = ref("");
+let colorAndPlace = ref("");
 
 const updateShoespot = (newShoespot) => {
   shoespot.value = newShoespot;
+  console.log(shoespot.value);
 };
 const updateColor = (newColor) => {
   color.value = newColor;
+  //make new array consisting of the color and the shoespot
+  colorAndPlace.value = [newColor, shoespot.value];
+  
 };
 
 const updateMaterial = (newMaterial) => {
   material.value = newMaterial;
+  console.log(material.value);
+};
+const updateShoeSize = (newShoeSize) => {
+  shoeSize.value = newShoeSize;
+  console.log(shoeSize.value);
 };
 
 const route = useRoute()
@@ -51,7 +62,9 @@ watch(() => route.path, (newPath) => {
       @color-changed="updateColor" 
       @material-changed="updateMaterial"
     />
-    <router-view v-else />
+    <router-view v-else-if="$route.path === '/shoeSize'"
+    @size-changed="updateShoeSize"
+    />
   </div>
 </template>
 
