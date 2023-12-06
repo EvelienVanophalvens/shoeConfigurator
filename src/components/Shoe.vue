@@ -234,7 +234,7 @@ const resetCamera = () => {
   const initialRotation = new THREE.Euler().copy(camera.rotation);
   const initialQuaternion = new THREE.Quaternion().setFromEuler(initialRotation);
 
-  const duration = 0.5; // Adjust the duration as needed
+  const duration = 1; // Adjust the duration as needed
   let elapsed = 0;
 
   const animateReset = () => {
