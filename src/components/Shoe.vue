@@ -22,9 +22,9 @@ controls.enablePan = false;
 //stop pan controls
 controls.enablePan = false;
 //minimum distance from the object
-controls.minDistance = 0.2;
+controls.minDistance = 0.3;
 
-controls.maxDistance =0.3;
+controls.maxDistance =0.5;
 
 // Create a CubeTextureLoader
 const cubeTextureLoader = new THREE.CubeTextureLoader();
@@ -105,8 +105,7 @@ gltfloader.load(
 
 });
     //set leatherMaterial texture for shoe on inside
-      
-    shoe.scale.set(0.5, 0.5, 0.5);
+    
     //cast shadow to plane
     console.log(shoe);
 
@@ -218,18 +217,49 @@ scene.add(directionalLight);
 let change = false;
 
 //set initioal camera position
-camera.position.set(0, 0.2, 0.3);
+camera.position.set(0, 0.2, 0.35);
 
 //set initial rotation
 camera.rotation.set( Math.PI/-6, 0, 0);
 
-//reset camera
+const easeInOutCubic = (t) => (t < 0.5 ? 4 * t ** 3 : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+// Add a method to reset the camera with smooth movement and easing
 const resetCamera = () => {
-  camera.position.set(0, 0.2, 0.3);
-  controls.target.set(0, 0, 0);
-  camera.rotation.set( Math.PI/-6, 0, 0);
-   controls.update();
-}
+  const targetPosition = new THREE.Vector3(0, 0.2, 0.35);
+  const targetRotation = new THREE.Euler(Math.PI / -6, 0, 0);
+  const targetQuaternion = new THREE.Quaternion().setFromEuler(targetRotation);
+
+  const initialPosition = new THREE.Vector3().copy(camera.position);
+  const initialRotation = new THREE.Euler().copy(camera.rotation);
+  const initialQuaternion = new THREE.Quaternion().setFromEuler(initialRotation);
+
+  const duration = 0.5; // Adjust the duration as needed
+  let elapsed = 0;
+
+  const animateReset = () => {
+    elapsed += 0.016; // Assuming 60 frames per second
+
+    const t = Math.min(elapsed / duration, 1);
+    const easedT = easeInOutCubic(t);
+
+    camera.position.lerp(targetPosition, easedT);
+    
+    // Use slerp for quaternion interpolation
+    const newQuaternion = new THREE.Quaternion().slerp(targetQuaternion, easedT);
+    camera.setRotationFromQuaternion(newQuaternion);
+
+    controls.target.set(0, 0, 0);
+    controls.update();
+
+    if (elapsed < duration) {
+      requestAnimationFrame(animateReset);
+    }
+  };
+
+  // Call animateReset to start the animation
+  animateReset();
+};
 
 
 
@@ -260,11 +290,6 @@ watch(() => props.shoespot, (newShoespot) => {
 
 function animate() {
   requestAnimationFrame(animate);
-
-  if (shoe) {
-    // Lerp the shoe rotation
-    shoe.quaternion.slerp(targetRotation, 0.1);
-  }
 
 
 
