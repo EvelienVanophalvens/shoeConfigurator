@@ -1,6 +1,13 @@
 <script setup>
 import { useRouter } from 'vue-router'
+import { defineEmits } from 'vue';
 import { ref } from 'vue'
+
+const emit = defineEmits({
+  // Define your emits here
+  'size-changed': null,
+});
+
 //make a list of shoe sizes
 const shoesizes = ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51"];
 const selectedSize = ref(null);
@@ -24,6 +31,7 @@ const setShoeSize = (shoesize) => {
     // console.log(shoesize);
     selectedSize.value = shoesize;
     showOverlay.value = false;
+    emit('size-changed', shoesize); // Emit size-changed event
 }
 
 </script>
