@@ -261,8 +261,6 @@ const resetCamera = () => {
   animateReset();
 };
 
-
-
 let targetRotation = new Quaternion();
 
 // Watch for changes in shoespot
@@ -274,14 +272,19 @@ watch(() => props.shoespot, (newShoespot) => {
     resetCamera();
   } else if(newShoespot == 1){
     euler.set(0, Math.PI / 2, 0);
+    resetCamera();
   } else if(newShoespot == 2){
     euler.set(0, Math.PI, 0);
+    resetCamera();
   } else if(newShoespot == 3){
     euler.set(0, -Math.PI / 2, 0);
+    resetCamera();
   } else if(newShoespot == 4){
     euler.set(0, -Math.PI, 0);
+    resetCamera();
   } else if(newShoespot == 5){
     euler.set(0, Math.PI / 2, 0);
+    resetCamera();
   }
   targetRotation.setFromEuler(euler);
 });
@@ -291,7 +294,11 @@ watch(() => props.shoespot, (newShoespot) => {
 function animate() {
   requestAnimationFrame(animate);
 
-
+  // Check if shoe is defined before trying to access its quaternion
+  if (shoe) {
+    // Lerp the shoe rotation
+    shoe.quaternion.slerp(targetRotation, 0.1);
+  }
 
   renderer.render(scene, camera);
 }
