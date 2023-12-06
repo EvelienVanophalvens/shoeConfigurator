@@ -14,20 +14,22 @@ const goToNextPage = () => {
 
 </script>
 <template>
-    <div class="container">
-        <div class="btnBack">
-            <a href="#" @click.prevent="goToPrevieusPage">back</a>
-        </div>
-        <h1>Shoe Size</h1>
-        <div id="shoesizeContainer" >
-            <div id="shoesize" v-for="shoesize in shoesizes" :key="shoesize" @click="setShoeSize(shoesize)">
-                <p>{{ shoesize }}</p>
+    <div class="section">
+        <div class="container">
+            <div class="btnBack">
+                <a href="#" @click.prevent="goToPrevieusPage">back</a>
+            </div>
+            <h1>Shoe Size</h1>
+            <div id="shoesizeContainer" >
+                <div id="shoesize" v-for="shoesize in shoesizes" :key="shoesize" @click="setShoeSize(shoesize)">
+                    <p>{{ shoesize }}</p>
+                </div>
+            </div>
+            <div class="btn">
+                <a href="#" @click.prevent="goToNextPage">Next</a>
             </div>
         </div>
-        <div class="btn">
-            <a href="#" @click.prevent="goToNextPage">Next</a>
-        </div>
-    </div>
+    </div>  
 </template>
 
 <style scoped>
@@ -97,5 +99,12 @@ const goToNextPage = () => {
     text-align: center;
     line-height: 50px;
     
+}
+.section{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: black;
 }
 </style>
