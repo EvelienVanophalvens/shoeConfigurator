@@ -1,4 +1,5 @@
-<script setup></script>
+<script setup>
+</script>
 <template>  
   <h1>Your information</h1>
   <div class="shoeInfo">

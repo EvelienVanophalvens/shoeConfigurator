@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, defineEmits, computed } from 'vue';
+    import { ref, defineEmits, computed, provide, reactive } from 'vue';
     import { useRouter } from 'vue-router'
     const shoespots = ["Laces", "Outsole", "Midsole", "Outer material", "Mid material", "Inner material"];
     let shoespot = ref(0);
@@ -84,6 +84,32 @@
     const goToNextPage = () => {
         router.push('/shoeSize')
     }
+
+
+    let lastSelected = reactive({
+  color: {
+    Laces: null,
+    Outsole: null,
+    Midsole: null,
+    'Outer material': null,
+    'Mid material': null,
+    'Inner material': null,
+    Tongue: null,
+  },
+  material: {
+    Laces: null,
+    Outsole: null,
+    Midsole: null,
+    'Outer material': null,
+    'Mid material': null,
+    'Inner material': null,
+    Tongue: null,
+  },
+})
+
+// Provide the lastSelected object
+provide('lastSelected', lastSelected);
+
 
 
 </script>

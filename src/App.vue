@@ -4,6 +4,8 @@ import Choose from './components/Choose.vue';
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
+
+
 let shoespot = ref(0);
 let color = ref("#ffffff");
 let material = ref("");
