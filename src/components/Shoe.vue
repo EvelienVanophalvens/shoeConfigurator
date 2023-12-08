@@ -133,7 +133,6 @@ gltfloader.load(
     shoe["children"][0]["children"][6].material.color.setHex(0xffffff);
     watch(() => props.color, (newColor) => {
       color = parseInt("0x"+newColor);
-      console.log(props.shoespot);
       switch(props.shoespot) {
       case 0:
         shoe["children"][0]["children"][1].material.color.setHex(color);
