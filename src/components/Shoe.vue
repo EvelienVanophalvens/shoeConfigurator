@@ -73,7 +73,6 @@ gltfloader.load(
   //make a switch statement to change the material of the shoe
   switch(newMaterial){
     case "Leather":
-      console.log("leather");
       textureLoader = new THREE.TextureLoader();
       shoe["children"][0]["children"][0].material = new THREE.MeshStandardMaterial({ 
       normalMap:  textureLoader.load('/textures/leatherMaterial/brown_leather_nor_gl_4k.jpg'), 
@@ -87,7 +86,6 @@ gltfloader.load(
       
     break;
     case "Polyester":
-      console.log("polyester");
       textureLoader = new THREE.TextureLoader();
       shoe["children"][0]["children"][0].material = new THREE.MeshStandardMaterial({ 
       normalMap: textureLoader.load('/textures/poylester/Fabric_polyester_001_normal.jpg'), 
@@ -107,7 +105,6 @@ gltfloader.load(
     //set leatherMaterial texture for shoe on inside
     
     //cast shadow to plane
-    console.log(shoe);
 
     //add shadows to children
     shoe.traverse((child) => {
@@ -133,7 +130,6 @@ gltfloader.load(
     shoe["children"][0]["children"][6].material.color.setHex(0xffffff);
     watch(() => props.color, (newColor) => {
       color = parseInt("0x"+newColor);
-      console.log(props.shoespot);
       switch(props.shoespot) {
       case 0:
         shoe["children"][0]["children"][1].material.color.setHex(color);
