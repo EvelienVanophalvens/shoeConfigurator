@@ -1,11 +1,37 @@
 <script setup>
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+//receive json string from shoeSize.vue
+
+const route = useRoute();
+const shoeOptionsString = route.query.shoeOptions;
+console.log(shoeOptionsString);
+const shoeOptions = JSON.parse(shoeOptionsString);
+console.log(shoeOptions);
+
+// Define reactive data
+const array1 = ref(shoeOptions[0][0].split(','));
+const array2 = ref(shoeOptions[0][1].split(','));
+const array3 = ref(shoeOptions[0][2].split(','));
+const array4 = ref(shoeOptions[0][3].split(','));
+const array5 = ref(shoeOptions[0][4].split(','));
+const array6 = ref(shoeOptions[0][5].split(','));
+const material = ref(shoeOptions[1]);
+const size = ref(shoeOptions[2]);
+
 </script>
+
 <template>  
   <h1>Your information</h1>
   <div class="shoeInfo">
-    <p>Shoespot: {{ shoespot }}</p>
-    <p>Color: {{ color }}</p>
+    <p>Laces: #{{ array1[0] }}</p>
+    <p>Outsole: #{{ array2[0] }}</p>
+    <p>Midsole: #{{ array3[0] }}</p>
+    <p>Outer material: #{{ array4[0] }}</p>
+    <p>Mid material: #{{ array5[0] }}</p>
+    <p>Inner material: #{{ array6[0] }}</p>
     <p>Material: {{ material }}</p>
+    <p>Size: {{ size }}</p>
   </div>
   <div class="userInfo">
     <h2>contact</h2>

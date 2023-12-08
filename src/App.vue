@@ -21,7 +21,7 @@ const updateColor = (newColor) => {
   //make new array consisting of the color and the shoespot
   colorAndPlace.value = [newColor, shoespot.value];
   //remove old colorAndPlace from first array in shoeOptions and add new colorAndPlace
-  if(shoespot.value >= 0 && shoespot.value <= 5){
+  if (shoespot.value >= 0 && shoespot.value <= 5) {
     shoeOptions.value[0].splice(shoespot.value, 1, colorAndPlace.value);
   }
 };
@@ -40,11 +40,11 @@ const updateShoeSize = (newShoeSize) => {
 const route = useRoute()
 
 watch(() => route.path, (newPath) => {
-  const canvasElement = document.querySelector('canvas');
-  if (canvasElement) {
-    canvasElement.style.display = newPath === '/info' ? 'none' : 'block';
-  }
-}, { immediate: true })
+   const canvasElement = document.querySelector('canvas');
+   if (canvasElement) {
+     canvasElement.style.display = newPath === '/info' ? 'none' : 'block';
+   }
+ }, { immediate: true })
 
 
 
@@ -61,15 +61,12 @@ watch(() => route.path, (newPath) => {
   </div>
   <Shoe id="shoe" :shoespot="shoespot" :color="color" :material="material" />
   <div id="choose">
-    <router-view 
-      v-if="$route.path === '/'" 
-      @shoespot-changed="updateShoespot" 
-      @color-changed="updateColor" 
-      @material-changed="updateMaterial"
-    />
-    <router-view v-else-if="$route.path === '/shoeSize'"
-    @size-changed="updateShoeSize"
-    />
+    <router-view v-if="$route.path === '/'" @shoespot-changed="updateShoespot" @color-changed="updateColor"
+      @material-changed="updateMaterial" />
+    <router-view v-else-if="$route.path === '/shoeSize'" 
+             @size-changed="updateShoeSize" 
+             :shoeOptions="shoeOptions" />
+    <router-view v-else-if="$route.path === '/info'"/>
   </div>
 </template>
 
@@ -98,12 +95,14 @@ watch(() => route.path, (newPath) => {
 
 
 }
-#shoeinfo h1{
+
+#shoeinfo h1 {
   font-size: 24px;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 }
+
 #header {
   display: flex;
   flex-direction: row;

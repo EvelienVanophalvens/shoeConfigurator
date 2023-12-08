@@ -1,11 +1,15 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import { defineEmits } from 'vue';
-import { ref } from 'vue'
+import { ref, defineEmits, defineProps } from 'vue'
 
 const emit = defineEmits({
   // Define your emits here
   'size-changed': null,
+});
+
+// Receive shoeOptions as a prop
+const props = defineProps({
+    shoeOptions: Array
 });
 
 //make a list of shoe sizes
@@ -20,10 +24,21 @@ const goToPrevieusPage = () => {
 }
 const goToNextPage = () => {
     if(selectedSize.value === null){
+        console.log('no size selected');
         showOverlay.value = true;
     }
     else{
-        router.push('/info');
+        const shoeColorPlace1 = props.shoeOptions[0][0].join(',');
+        const shoeColorPlace2 = props.shoeOptions[0][1].join(',');
+        const shoeColorPlace3 = props.shoeOptions[0][2].join(',');
+        const shoeColorPlace4 = props.shoeOptions[0][3].join(',');
+        const shoeColorPlace5 = props.shoeOptions[0][4].join(',');
+        const shoeColorPlace6 = props.shoeOptions[0][5].join(',');
+        const shoeMaterial = props.shoeOptions[1];
+        const shoeSize = props.shoeOptions[2];
+        const shoeOptionsNew = [[shoeColorPlace1, shoeColorPlace2, shoeColorPlace3, shoeColorPlace4, shoeColorPlace5, shoeColorPlace6], shoeMaterial, shoeSize];
+        const shoeOptionsString = JSON.stringify(shoeOptionsNew);
+        router.push({ path: "/info", query: { shoeOptions: shoeOptionsString } });
     }
 }
 //on click shoesize ==> console log
