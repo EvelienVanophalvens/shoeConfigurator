@@ -91,7 +91,6 @@ gltfloader.load(
       normalMap: textureLoader.load('/textures/poylester/Fabric_polyester_001_normal.jpg'), 
       aoMap: textureLoader.load('/textures/poylester/Fabric_polyester_001_ambientOcclusion.jpg'), 
       displacementMap: textureLoader.load('/poylester/leatherMaterial/Fabric_polyester_001_height.png'), 
-      displacementScale: 0,
       roughnessMap: textureLoader.load('/poylester/leatherMaterial/Fabric_polyester_001_roughness.jpg'),
       roughness: 1,
       map: textureLoader.load('/textures/poylester/Fabric_polyester_001_basecolor.jpg'),
@@ -101,6 +100,7 @@ gltfloader.load(
     break;
   }
 
+  
 });
     //set leatherMaterial texture for shoe on inside
     
