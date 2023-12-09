@@ -5,6 +5,11 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { Quaternion, Euler } from 'three';
 
+const sizes = {
+  width: window.innerWidth,
+  height: window.innerHeight
+  }
+
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -18,6 +23,22 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.maxPolarAngle = Math.PI / 2;
 controls.enablePan = false;
+
+window.addEventListener('resize', () => {
+  // Update sizes
+  sizes.width = window.innerWidth
+  sizes.height = window.innerHeight
+
+  // Update camera
+  camera.aspect = sizes.width / sizes.height
+  camera.updateProjectionMatrix()
+
+  // Update renderer
+  renderer.setSize(sizes.width, sizes.height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+})
+
+
 
 //stop pan controls
 controls.enablePan = false;
@@ -270,16 +291,16 @@ watch(() => props.shoespot, (newShoespot) => {
     euler.set(0, Math.PI / 2, 0);
     resetCamera();
   } else if(newShoespot == 2){
-    euler.set(0, Math.PI, 0);
+    euler.set(0, Math.PI / 2, 0);
     resetCamera();
   } else if(newShoespot == 3){
     euler.set(0, -Math.PI / 2, 0);
     resetCamera();
   } else if(newShoespot == 4){
-    euler.set(0, -Math.PI, 0);
+    euler.set(0, -Math.PI / 2, 0);
     resetCamera();
   } else if(newShoespot == 5){
-    euler.set(0, Math.PI / 2, 0);
+    euler.set(0, Math.PI / 2, 1);
     resetCamera();
   }
   targetRotation.setFromEuler(euler);
