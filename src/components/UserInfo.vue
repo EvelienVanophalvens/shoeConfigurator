@@ -74,6 +74,14 @@ const sendData = () => {
   // Send data to server
   socket.send(JSON.stringify(data));
 
+  //send data to database
+  fetch('http://localhost:3000/api/v1/shoes', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
 
 
 };
