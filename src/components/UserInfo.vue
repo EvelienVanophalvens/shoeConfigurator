@@ -1,13 +1,19 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 //receive json string from shoeSize.vue
 
+onMounted(() => {
+  //make connection with server
+  const socket = new WebSocket('ws://localhost:3000/primus');
+  socket.addEventListener('open', function (event) {
+    console.log('Connected to server');
+  });
+});
+
 const route = useRoute();
 const shoeOptionsString = route.query.shoeOptions;
-console.log(shoeOptionsString);
 const shoeOptions = JSON.parse(shoeOptionsString);
-console.log(shoeOptions);
 
 // Define reactive data
 const array1 = ref(shoeOptions[0][0].split(','));
@@ -18,6 +24,8 @@ const array5 = ref(shoeOptions[0][4].split(','));
 const array6 = ref(shoeOptions[0][5].split(','));
 const material = ref(shoeOptions[1]);
 const size = ref(shoeOptions[2]);
+
+
 
 </script>
 
@@ -85,7 +93,7 @@ const size = ref(shoeOptions[2]);
       </div>
     </div>
     <div class="btn">
-      <a href="#" @click.prevent="goToNextPage">Next</a>
+      <a href="#" @click="">Next</a>
     </div>
   </div>
 </template>
@@ -160,6 +168,13 @@ h2 {
   text-decoration: none;
   font-size: 1em;
   font-weight: bold;
+}
+
+.shoeInfo {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  margin: auto;
 }
 
 </style>
