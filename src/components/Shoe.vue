@@ -25,18 +25,18 @@ controls.maxPolarAngle = Math.PI / 2;
 controls.enablePan = false;
 
 window.addEventListener('resize', () => {
-                // Update sizes
-                sizes.width = window.innerWidth
-                sizes.height = window.innerHeight
+  // Update sizes
+  sizes.width = window.innerWidth
+  sizes.height = window.innerHeight
 
-                // Update camera
-                camera.aspect = sizes.width / sizes.height
-                camera.updateProjectionMatrix()
+  // Update camera
+  camera.aspect = sizes.width / sizes.height
+  camera.updateProjectionMatrix()
 
-                // Update renderer
-                renderer.setSize(sizes.width, sizes.height);
-                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            })
+  // Update renderer
+  renderer.setSize(sizes.width, sizes.height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+})
 
 
 
@@ -291,16 +291,16 @@ watch(() => props.shoespot, (newShoespot) => {
     euler.set(0, Math.PI / 2, 0);
     resetCamera();
   } else if(newShoespot == 2){
-    euler.set(0, Math.PI, 0);
+    euler.set(0, Math.PI / 2, 0);
     resetCamera();
   } else if(newShoespot == 3){
     euler.set(0, -Math.PI / 2, 0);
     resetCamera();
   } else if(newShoespot == 4){
-    euler.set(0, -Math.PI, 0);
+    euler.set(0, -Math.PI / 2, 0);
     resetCamera();
   } else if(newShoespot == 5){
-    euler.set(0, Math.PI / 2, 0);
+    euler.set(0, Math.PI / 2, 1);
     resetCamera();
   }
   targetRotation.setFromEuler(euler);
