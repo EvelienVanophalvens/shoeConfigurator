@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute } from 'vue-router';
 //receive json string from shoeSize.vue
 
@@ -11,6 +11,12 @@ onMounted(() => {
   socket.addEventListener('open', function (event) {
     console.log('Connected to server');
   });
+});
+
+//close connection with server when leaving page
+onBeforeUnmount(() => {
+  socket.close();
+  console.log('Disconnected from server');
 });
 
 const route = useRoute();
