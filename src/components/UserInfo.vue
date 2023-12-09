@@ -3,9 +3,11 @@ import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 //receive json string from shoeSize.vue
 
+let socket = null;
+
 onMounted(() => {
   //make connection with server
-  const socket = new WebSocket('ws://localhost:3000/primus');
+  socket = new WebSocket('ws://localhost:3000/primus');
   socket.addEventListener('open', function (event) {
     console.log('Connected to server');
   });
@@ -24,6 +26,51 @@ const array5 = ref(shoeOptions[0][4].split(','));
 const array6 = ref(shoeOptions[0][5].split(','));
 const material = ref(shoeOptions[1]);
 const size = ref(shoeOptions[2]);
+
+
+// Define functions
+const sendData = () => {
+  let firstname = document.querySelector("#firstname").value;
+  let lastname = document.querySelector("#lastname").value;
+  let email = document.querySelector("#email").value;
+  let phoneNumber = document.querySelector("#phoneNumber").value;
+  let street = document.querySelector("#street").value;
+  let houseNumber = document.querySelector("#houseNumber").value;
+  let city = document.querySelector("#city").value;
+  let zipcode = document.querySelector("#zipcode").value;
+  let state = document.querySelector("#state").value;
+  let country = document.querySelector("#country").value;
+
+
+  const data = {
+    shoeName: "air rev nitro’s",
+    colorLaces: array1.value[0],
+    colorOutsole: array2.value[0],
+    colorMidsole: array3.value[0],
+    colorOuterMaterial: array4.value[0],
+    colorMidMaterial: array5.value[0],
+    colorInnerMaterial: array6.value[0],
+    innerMaterial: material.value,
+    shoeSize: size.value,
+    firstName: firstname,
+    lastName: lastname,
+    email: email,
+    phoneNumber: phoneNumber,
+    street: street,
+    houseNumber: houseNumber,
+    city: city,
+    zipcode: zipcode,
+    state: state,
+    country: country
+    
+  };
+
+  // Send data to server
+  socket.send(JSON.stringify(data));
+
+
+
+};
 
 
 
@@ -46,54 +93,54 @@ const size = ref(shoeOptions[2]);
     <div class="name">
       <div class="input">
         <label for="firstname">firstname:</label>
-        <input type="text">
+        <input id="firstname" type="text">
       </div>
       <div class="input">
         <label for="lastname">lastname:</label>
-        <input type="text">
+        <input id="lastname"  type="text">
       </div>
     </div>
       <div class="contact">
       <div class="input">
         <label for="email">email:</label>
-        <input type="text">
+        <input id="email" type="text">
       </div>  
       <div class="input">
         <label for="phoneNumber">phonenumber:</label>
-        <input type="text">
+        <input id="phoneNumber" type="text">
       </div>   
     </div>
     <h2>adress</h2>
     <div class="address1">
       <div class="input">
         <label for="street">street:</label>
-        <input type="text">
+        <input id="street" type="text">
       </div>   
       <div class="input">
         <label for="houseNumber">housenumber:</label>
-        <input type="text">
+        <input id="houseNumber" type="text">
       </div>
       <div class="input">
         <label for="city">city:</label>
-        <input type="text">
+        <input id="city" type="text">
       </div>
       <div class="input">
         <label for="zipcode">zipcode:</label>
-        <input type="text">
+        <input id="zipcode" type="text">
       </div>
     </div>
     <div class="address2">
       <div class="input">
         <label for="state">state:</label>
-        <input type="text">
+        <input id="state" type="text">
       </div>
       <div class="input">
         <label for="country">country:</label>
-        <input type="text">
+        <input id="country" type="text">
       </div>
     </div>
     <div class="btn">
-      <a href="#" @click="">Next</a>
+      <a href="#" @click="sendData">Next</a>
     </div>
   </div>
 </template>
