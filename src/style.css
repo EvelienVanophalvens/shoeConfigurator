@@ -19,3 +19,13 @@ canvas {
   width: 100%;
 }
 
+
+.picture{
+  fill: #000000;
+  stroke: #000000;
+  margin: 0.5em 0em;
+  cursor: pointer;
+  position: absolute;
+  bottom: 250px;
+  right: 32px;
+}
