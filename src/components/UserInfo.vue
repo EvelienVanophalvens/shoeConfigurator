@@ -7,9 +7,9 @@ let socket = null;
 
 onMounted(() => {
   //make connection with server
-  socket = new WebSocket('ws://localhost:3000/primus');
+  socket = new WebSocket('wss://shoeconfigurator.onrender.com/primus');
   socket.addEventListener('open', function (event) {
-    console.log('Connected to server')
+    console.log('Connected to server');
   });
 });
 
@@ -75,15 +75,15 @@ const sendData = () => {
   socket.send(JSON.stringify(data));
 
   //send data to database
-  fetch('http://localhost:3000/api/v1/shoes', {
+  fetch('https://shoeconfigurator.onrender.com/api/v1/shoes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
   })
-
-
+  //temp alert
+  window.alert("Your order has been placed!");
 };
 
 
