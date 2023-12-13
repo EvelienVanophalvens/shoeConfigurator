@@ -9,7 +9,7 @@ onMounted(() => {
   //make connection with server
   socket = new WebSocket('ws://localhost:3000/primus');
   socket.addEventListener('open', function (event) {
-    console.log('Connected to server');
+    console.log('Connected to server')
   });
 });
 
@@ -65,7 +65,7 @@ const sendData = () => {
     street: street,
     houseNumber: houseNumber,
     city: city,
-    zipcode: zipcode,
+    zipCode: zipcode,
     state: state,
     country: country
     
