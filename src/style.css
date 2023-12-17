@@ -11,14 +11,20 @@ canvas {
   z-index: -1;
 }
 
-#choose{
+.choose{
   position: absolute;
   bottom: 0;
   left: 0;
   height: fit-content;
   width: 100%;
 }
-
+.info{
+  position: absolute;
+  top: 100px;
+  right: 0;
+  height: fit-content;
+  width: 100%;
+}
 
 .picture{
   fill: #000000;

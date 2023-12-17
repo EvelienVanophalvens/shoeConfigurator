@@ -165,6 +165,10 @@ h1 {
   padding: 0;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  margin: auto;
 }
 h2 {
   font-size: 1.5em;

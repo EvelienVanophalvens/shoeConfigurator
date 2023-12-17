@@ -60,13 +60,17 @@ watch(() => route.path, (newPath) => {
     </div>
   </div>
   <Shoe id="shoe" :shoespot="shoespot" :color="color" :material="material" />
-  <div id="choose">
-    <router-view v-if="$route.path === '/'" @shoespot-changed="updateShoespot" @color-changed="updateColor"
+  <div class="choose" v-if="$route.path === '/'">
+    <router-view @shoespot-changed="updateShoespot" @color-changed="updateColor"
       @material-changed="updateMaterial" />
-    <router-view v-else-if="$route.path === '/shoeSize'" 
+  </div>
+  <div class="choose" v-else-if="$route.path === '/shoeSize'">
+    <router-view 
              @size-changed="updateShoeSize" 
              :shoeOptions="shoeOptions" />
-    <router-view v-else-if="$route.path === '/info'"/>
+  </div>
+  <div class="info" v-else-if="$route.path === '/info'">
+    <router-view/>
   </div>
 </template>
 
