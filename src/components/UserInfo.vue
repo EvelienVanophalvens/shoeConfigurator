@@ -47,6 +47,7 @@ const sendData = () => {
   let state = document.querySelector("#state").value;
   let country = document.querySelector("#country").value;
 
+  let orderNumber = Math.floor(Math.random() * 1000000);
 
   const data = {
     shoeName: "air rev nitro’s",
@@ -67,7 +68,9 @@ const sendData = () => {
     city: city,
     zipCode: zipcode,
     state: state,
-    country: country
+    country: country,
+    status: "pending",
+    orderNumber: orderNumber
     
   };
 
