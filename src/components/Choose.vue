@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, defineEmits, computed, provide, reactive } from 'vue';
+    import { ref, defineEmits, computed, provide, reactive, onMounted } from 'vue';
     import { useRouter } from 'vue-router'
     const shoespots = ["Laces", "Outsole", "Midsole", "Outer material", "Mid material", "Inner material"];
     let shoespot = ref(0);
@@ -9,10 +9,13 @@
     let colorMidsole = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
     let colorOuterMaterial = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
     let colorMidMaterial = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
-    let colorInnerMaterial = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
+    let colorInnerMaterial = [];
     let colorTongue = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
 
-
+    // on mounted setMaterial
+    onMounted(() => {
+        setMaterial("Leather");
+    })
     //define emit function
     const emit = defineEmits(['shoespot-changed', 'color-changed', 'material-changed']);
     const next = () => {
@@ -65,14 +68,13 @@
     const setColor = (color, e) => {
         const newColor = color.slice(1);
         emit('color-changed', newColor);
-
     }
 
     //material only for inner material
     const isInnerMaterial = computed(() => shoespots[shoespot.value] === "Inner material");
     //make an array of the following materials: leather, polyester
     let  materials = ["Leather", "Polyester"];
-    let material = ref(0);
+    let material = ref("");
 
     const setMaterial = (m) => {
         material.value = m;
