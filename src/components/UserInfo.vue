@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute } from 'vue-router';
+import Swal from 'sweetalert2'
 //receive json string from shoeSize.vue
 
 let socket = null;
@@ -46,47 +47,58 @@ const sendData = () => {
   let zipcode = document.querySelector("#zipcode").value;
   let state = document.querySelector("#state").value;
   let country = document.querySelector("#country").value;
-
   let orderNumber = Math.floor(Math.random() * 1000000);
+  if (firstname && lastname && email && phoneNumber && street && houseNumber && city && zipcode && state && country) {
+    const data = {
+      shoeName: "air rev nitro’s",
+      colorLaces: array1.value[0],
+      colorOutsole: array2.value[0],
+      colorMidsole: array3.value[0],
+      colorOuterMaterial: array4.value[0],
+      colorMidMaterial: array5.value[0],
+      colorInnerMaterial: array6.value[0],
+      innerMaterial: material.value,
+      shoeSize: size.value,
+      firstName: firstname,
+      lastName: lastname,
+      email: email,
+      phoneNumber: phoneNumber,
+      street: street,
+      houseNumber: houseNumber,
+      city: city,
+      zipCode: zipcode,
+      state: state,
+      country: country,
+      status: "pending",
+      orderNumber: orderNumber
 
-  const data = {
-    shoeName: "air rev nitro’s",
-    colorLaces: array1.value[0],
-    colorOutsole: array2.value[0],
-    colorMidsole: array3.value[0],
-    colorOuterMaterial: array4.value[0],
-    colorMidMaterial: array5.value[0],
-    colorInnerMaterial: array6.value[0],
-    innerMaterial: material.value,
-    shoeSize: size.value,
-    firstName: firstname,
-    lastName: lastname,
-    email: email,
-    phoneNumber: phoneNumber,
-    street: street,
-    houseNumber: houseNumber,
-    city: city,
-    zipCode: zipcode,
-    state: state,
-    country: country,
-    status: "pending",
-    orderNumber: orderNumber
+    };
 
-  };
+    // Send data to server
+    socket.send(JSON.stringify(data));
 
-  // Send data to server
-  socket.send(JSON.stringify(data));
-
-  //send data to database
-  fetch('https://shoeconfigurator.onrender.com/api/v1/shoes', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-  //temp alert
-  window.alert("Your order has been placed!");
+    //send data to database
+    fetch('https://shoeconfigurator.onrender.com/api/v1/shoes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    Swal.fire({
+      title: 'Your order has been placed!',
+      icon: 'success',
+      showCancelButton: false,
+      confirmButtonText: 'Cool!',
+    })
+  } else {
+    Swal.fire({
+      title: 'Please fill in all fields!',
+      icon: 'error',
+      showCancelButton: false,
+      confirmButtonText: 'Ok!',
+    })
+  }
 };
 
 
@@ -254,4 +266,5 @@ h2 {
   flex-direction: row;
   width: 70%;
   margin: auto;
-}</style>
+}
+</style>
