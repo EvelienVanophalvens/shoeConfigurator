@@ -70,7 +70,8 @@ const sendData = () => {
       state: state,
       country: country,
       status: "pending",
-      orderNumber: orderNumber
+      orderNumber: orderNumber,
+      action: "create"
 
     };
 
