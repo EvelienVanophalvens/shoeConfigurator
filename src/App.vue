@@ -41,8 +41,10 @@ const route = useRoute()
 
 watch(() => route.path, (newPath) => {
    const canvasElement = document.querySelector('canvas');
+   const pictureElement = document.querySelector('.picture');
    if (canvasElement) {
      canvasElement.style.display = newPath === '/info' ? 'none' : 'block';
+     pictureElement.style.display = newPath === '/info' ? 'none' : 'block';
    }
  }, { immediate: true })
 

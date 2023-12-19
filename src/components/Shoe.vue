@@ -1,5 +1,5 @@
 <script setup>
-import { watch, ref, onMounted } from 'vue';
+import { watch, ref, onMounted, onUnmounted } from 'vue';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -349,6 +349,22 @@ const downloadScreenshot = () => {
     link.click();
   }
 };
+
+
+const closePreview = (event) => {
+  if (event.target.id !== 'previewContainer' && event.target.id !== 'screenshotPreview') {
+    showPreview.value = false;
+  }
+};
+
+onMounted(() => {
+  document.addEventListener('click', closePreview);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', closePreview);
+});
+
 
 </script>
 
