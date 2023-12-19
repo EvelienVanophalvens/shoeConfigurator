@@ -75,8 +75,7 @@ const sendData = () => {
   socket.send(JSON.stringify(data));
 
   //send data to database
-  // fetch('https://shoeconfigurator.onrender.com/api/v1/shoes', {
-  fetch('http://localhost:3000/api/v1/shoes', {
+  fetch('https://shoeconfigurator.onrender.com/api/v1/shoes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
