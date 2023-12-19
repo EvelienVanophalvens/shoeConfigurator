@@ -114,7 +114,7 @@ watch(() => route.path, (newPath) => {
   align-items: center;
   width: 100%;
   height: 61px;
-  background-color: #ffff;
-
+  color: white;
+  background-color: black;
 }
 </style>
