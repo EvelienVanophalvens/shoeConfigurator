@@ -174,7 +174,7 @@ ul{
 .materials{
     display: flex;
     flex-direction: row;
-    height: 82px;
+    height: auto;
 }
 .material{
     width: 150px;
@@ -217,7 +217,7 @@ a{
 }
 .section{
     width: 100%;
-    height: 212px;
+    height: 140px;
     position: absolute;
     bottom: 0;
     left: 0;
