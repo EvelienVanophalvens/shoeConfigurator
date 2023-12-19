@@ -94,6 +94,7 @@ gltfloader.load(
   //make a switch statement to change the material of the shoe
   switch(newMaterial){
     case "Leather":
+      console.log("leather");
       textureLoader = new THREE.TextureLoader();
       shoe["children"][0]["children"][0].material = new THREE.MeshStandardMaterial({ 
       normalMap:  textureLoader.load('/textures/leatherMaterial/brown_leather_nor_gl_4k.jpg'), 
@@ -116,8 +117,6 @@ gltfloader.load(
       roughness: 1,
       map: textureLoader.load('/textures/poylester/Fabric_polyester_001_basecolor.jpg'),
      });
-
-
     break;
   }
 
@@ -135,8 +134,6 @@ gltfloader.load(
     });
 
     //color the shoe
-    //inside
-    shoe["children"][0]["children"][0].material.color.setHex(0xffffff);
     //laces
     shoe["children"][0]["children"][1].material.color.setHex(0xffffff);
     //outside 1
@@ -149,6 +146,17 @@ gltfloader.load(
     shoe["children"][0]["children"][5].material.color.setHex(0xffffff);
     //soleTop + lips
     shoe["children"][0]["children"][6].material.color.setHex(0xffffff);
+    //inside
+    textureLoader = new THREE.TextureLoader();
+      shoe["children"][0]["children"][0].material = new THREE.MeshStandardMaterial({ 
+      normalMap:  textureLoader.load('/textures/leatherMaterial/brown_leather_nor_gl_4k.jpg'), 
+      aoMap: textureLoader.load('/textures/leatherMaterial/brown_leather_ao_4K.jpg'), 
+      displacementMap: textureLoader.load('/textures/leatherMaterial/leather_disp_4k.jpg'), 
+      displacementScale: 0,
+      roughnessMap: textureLoader.load('/textures/leatherMaterial/brown_leather_rough_4k.jpg'),
+      roughness: 1,
+      map: textureLoader.load('/textures/leatherMaterial/brown_leather_albedo_4k.jpg'),
+     });
     watch(() => props.color, (newColor) => {
       color = parseInt("0x"+newColor);
       switch(props.shoespot) {
@@ -167,9 +175,6 @@ gltfloader.load(
       case 4:
         shoe["children"][0]["children"][3].material.color.setHex(color);
         shoe["children"][0]["children"][4].material.color.setHex(color);
-        break;
-      case 5:
-        shoe["children"][0]["children"][0].material.color.setHex(color);
         break;
     }
     });

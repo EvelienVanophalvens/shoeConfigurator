@@ -78,18 +78,19 @@
 
     const setMaterial = (m) => {
         material.value = m;
+        //add selected id (this is m) to .materials
+        const selectedMaterial = document.querySelector(`#${m}`);
+        const deselectMaterial = document.querySelector(`.selected`);
+        if (deselectMaterial) {
+            deselectMaterial.classList.remove("selected");
+        }
+        selectedMaterial.classList.add("selected");
         emit('material-changed', material.value);
     }
-
     const router = useRouter()
-
     const goToNextPage = () => {
         router.push('/shoeSize')
     }
-
-
-
-
 </script>
 <template>
     <div class="section">
@@ -101,7 +102,7 @@
             </div>
             <div class="materials">
                 <ul v-show="isInnerMaterial" class="materials"> 
-                    <li v-for="m in materials" @click="setMaterial(m)">{{m}}</li>
+                    <li :id="m" class="material" v-for="m in materials" @click="setMaterial(m)">{{m}}</li>
                 </ul>
             </div>
             <div>
@@ -116,6 +117,10 @@
     </div>
 </template>
 <style scoped>
+.material.selected{
+    border: #D6FF38 solid 2px;
+    color: #D6FF38;
+}
 .center {
     display: flex;
     flex-direction: column;
@@ -171,7 +176,7 @@ ul{
     flex-direction: row;
     height: 82px;
 }
-.materials li{
+.material{
     width: 150px;
     height: 30px;
     list-style-type: none;
@@ -185,8 +190,7 @@ ul{
     text-align: center;
     line-height: 30px;
 }
-
-.materials li:hover{
+.material:hover{
     border: #D6FF38 solid 2px;
     color: #D6FF38;
     cursor: pointer;

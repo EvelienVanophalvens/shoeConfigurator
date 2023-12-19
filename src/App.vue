@@ -8,7 +8,7 @@ import { useRoute } from 'vue-router';
 
 let shoespot = ref(0);
 let color = ref("#ffffff");
-let material = ref("");
+let material = ref("Leather");
 let shoeSize = ref("");
 let colorAndPlace = ref("");
 let shoeOptions = ref([[["ffffff", 0], ["ffffff", 1], ["ffffff", 2], ["ffffff", 3], ["ffffff", 4], ["ffffff", 5]], undefined, undefined])
