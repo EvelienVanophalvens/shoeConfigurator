@@ -76,7 +76,6 @@ onMounted(() => {
   aoTexture = textureLoader.load('/textures/leatherMaterial/brown_leather_ao_4K.jpg');
   displacementTexture = textureLoader.load('/textures/leatherMaterial/leather_disp_4k.jpg');
   roughnessTexture = textureLoader.load('/textures/leatherMaterial/brown_leather_rough_4k.jpg');
-  map = textureLoader.load('/textures/leatherMaterial/brown_leather_albedo_4k.jpg');
 });
 //load gltf model
 const gltfloader = new GLTFLoader();
@@ -103,7 +102,6 @@ gltfloader.load(
             displacementScale: 0,
             roughnessMap: textureLoader.load('/textures/leatherMaterial/brown_leather_rough_4k.jpg'),
             roughness: 1,
-            map: textureLoader.load('/textures/leatherMaterial/brown_leather_albedo_4k.jpg'),
           });
 
           break;
@@ -115,7 +113,6 @@ gltfloader.load(
             displacementMap: textureLoader.load('/poylester/leatherMaterial/Fabric_polyester_001_height.png'),
             roughnessMap: textureLoader.load('/poylester/leatherMaterial/Fabric_polyester_001_roughness.jpg'),
             roughness: 1,
-            map: textureLoader.load('/textures/poylester/Fabric_polyester_001_basecolor.jpg'),
           });
           break;
       }
@@ -175,6 +172,9 @@ gltfloader.load(
         case 4:
           shoe["children"][0]["children"][3].material.color.setHex(color);
           shoe["children"][0]["children"][4].material.color.setHex(color);
+          break;
+        case 5:
+          shoe["children"][0]["children"][0].material.color.setHex(color);
           break;
       }
     });

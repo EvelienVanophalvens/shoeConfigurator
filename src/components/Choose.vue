@@ -9,7 +9,7 @@ let colorLaces = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff0
 let colorMidsole = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
 let colorOuterMaterial = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
 let colorMidMaterial = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
-let colorInnerMaterial = [];
+let colorInnerMaterial = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
 let colorTongue = ["#ffffff", "#000000", "#ff0000", "#00ffff", "#00ff00", "#ffff00", "#0000ff", "#000000"];
 
 // on mounted setMaterial
@@ -113,8 +113,8 @@ const goToNextPage = () => {
                     <li :id="m" class="material" v-for="m in materials" @click="setMaterial(m)">{{ m }}</li>
                 </ul>
             </div>
-            <div>
-                <ul class="colors">
+            <div class="colors">
+                <ul >
                     <li v-for="c in colors" :style="{ backgroundColor: c }" @click="setColor(c)"></li>
                 </ul>
             </div>
@@ -173,6 +173,10 @@ ul {
     padding: 0;
     display: flex;
     flex-direction: row;
+}
+.colors{
+    position: absolute;
+    bottom: 0;
 }
 
 .colors li {
@@ -238,7 +242,7 @@ a {
 
 .section {
     width: 100%;
-    height: 140px;
+    height: 200px;
     position: absolute;
     bottom: 0;
     left: 0;
