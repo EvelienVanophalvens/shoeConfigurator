@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute } from 'vue-router';
+import Swal from 'sweetalert2'
 //receive json string from shoeSize.vue
 
 let socket = null;
@@ -46,54 +47,65 @@ const sendData = () => {
   let zipcode = document.querySelector("#zipcode").value;
   let state = document.querySelector("#state").value;
   let country = document.querySelector("#country").value;
-
   let orderNumber = Math.floor(Math.random() * 1000000);
+  if (firstname && lastname && email && phoneNumber && street && houseNumber && city && zipcode && state && country) {
+    const data = {
+      shoeName: "air rev nitro’s",
+      colorLaces: array1.value[0],
+      colorOutsole: array2.value[0],
+      colorMidsole: array3.value[0],
+      colorOuterMaterial: array4.value[0],
+      colorMidMaterial: array5.value[0],
+      colorInnerMaterial: array6.value[0],
+      innerMaterial: material.value,
+      shoeSize: size.value,
+      firstName: firstname,
+      lastName: lastname,
+      email: email,
+      phoneNumber: phoneNumber,
+      street: street,
+      houseNumber: houseNumber,
+      city: city,
+      zipCode: zipcode,
+      state: state,
+      country: country,
+      status: "pending",
+      orderNumber: orderNumber
 
-  const data = {
-    shoeName: "air rev nitro’s",
-    colorLaces: array1.value[0],
-    colorOutsole: array2.value[0],
-    colorMidsole: array3.value[0],
-    colorOuterMaterial: array4.value[0],
-    colorMidMaterial: array5.value[0],
-    colorInnerMaterial: array6.value[0],
-    innerMaterial: material.value,
-    shoeSize: size.value,
-    firstName: firstname,
-    lastName: lastname,
-    email: email,
-    phoneNumber: phoneNumber,
-    street: street,
-    houseNumber: houseNumber,
-    city: city,
-    zipCode: zipcode,
-    state: state,
-    country: country,
-    status: "pending",
-    orderNumber: orderNumber,
-    action: "create"
-  };
+    };
 
-  // Send data to server
-  socket.send(JSON.stringify(data));
+    // Send data to server
+    socket.send(JSON.stringify(data));
 
-  //send data to database
-  fetch('https://shoeconfigurator.onrender.com/api/v1/shoes', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-  //temp alert
-  window.alert("Your order has been placed!");
+    //send data to database
+    fetch('https://shoeconfigurator.onrender.com/api/v1/shoes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    Swal.fire({
+      title: 'Your order has been placed!',
+      icon: 'success',
+      showCancelButton: false,
+      confirmButtonText: 'Cool!',
+    })
+  } else {
+    Swal.fire({
+      title: 'Please fill in all fields!',
+      icon: 'error',
+      showCancelButton: false,
+      confirmButtonText: 'Ok!',
+    })
+  }
 };
 
 
 
 </script>
 
-<template>  
+<template>
   <h1>Your information</h1>
   <div class="shoeInfo">
     <p>Laces: #{{ array1[0] }}</p>
@@ -114,25 +126,25 @@ const sendData = () => {
       </div>
       <div class="input">
         <label for="lastname">lastname:</label>
-        <input id="lastname"  type="text">
+        <input id="lastname" type="text">
       </div>
     </div>
-      <div class="contact">
+    <div class="contact">
       <div class="input">
         <label for="email">email:</label>
         <input id="email" type="text">
-      </div>  
+      </div>
       <div class="input">
         <label for="phoneNumber">phonenumber:</label>
         <input id="phoneNumber" type="text">
-      </div>   
+      </div>
     </div>
     <h2>adress</h2>
     <div class="address1">
       <div class="input">
         <label for="street">street:</label>
         <input id="street" type="text">
-      </div>   
+      </div>
       <div class="input">
         <label for="houseNumber">housenumber:</label>
         <input id="houseNumber" type="text">
@@ -173,52 +185,62 @@ h1 {
   width: 70%;
   margin: auto;
 }
+
 h2 {
   font-size: 1.5em;
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
 }
+
 .input {
   display: flex;
   flex-direction: column;
   width: 50%;
   margin: 0em 2em 0em 0em;
 }
+
 .input label {
   font-size: 1em;
   margin: 0.5em 0em;
   font-family: Arial, Helvetica, sans-serif;
 }
+
 .input input {
   font-size: 1em;
   padding: 0.5em;
   border: 1px solid black;
   font-family: Arial, Helvetica, sans-serif;
 }
+
 .name {
   display: flex;
   flex-direction: row;
 }
+
 .contact {
   display: flex;
   flex-direction: row;
   margin: 1em 0em 2em 0em;
 }
+
 .address1 {
   display: flex;
   flex-direction: row;
 }
+
 .address2 {
   display: flex;
   flex-direction: row;
   margin: 1em 0em 2em 0em;
 }
+
 .userInfo {
   display: flex;
   flex-direction: column;
   width: 70%;
   margin: auto;
 }
+
 .btn {
   display: inline-block;
   background-color: #D6FF38;
@@ -230,6 +252,7 @@ h2 {
   align-self: end;
   margin: 0em 2em 0em 0em;
 }
+
 .btn a {
   color: black;
   font-family: Arial, Helvetica, sans-serif;
@@ -244,5 +267,4 @@ h2 {
   width: 70%;
   margin: auto;
 }
-
 </style>

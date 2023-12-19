@@ -8,7 +8,7 @@ import { Quaternion, Euler } from 'three';
 const sizes = {
   width: window.innerWidth,
   height: window.innerHeight
-  }
+}
 
 
 const scene = new THREE.Scene();
@@ -45,7 +45,7 @@ controls.enablePan = false;
 //minimum distance from the object
 controls.minDistance = 0.3;
 
-controls.maxDistance =0.5;
+controls.maxDistance = 0.5;
 
 // Create a CubeTextureLoader
 const cubeTextureLoader = new THREE.CubeTextureLoader();
@@ -76,7 +76,6 @@ onMounted(() => {
   aoTexture = textureLoader.load('/textures/leatherMaterial/brown_leather_ao_4K.jpg');
   displacementTexture = textureLoader.load('/textures/leatherMaterial/leather_disp_4k.jpg');
   roughnessTexture = textureLoader.load('/textures/leatherMaterial/brown_leather_rough_4k.jpg');
-  map = textureLoader.load('/textures/leatherMaterial/brown_leather_albedo_4k.jpg');
 });
 //load gltf model
 const gltfloader = new GLTFLoader();
@@ -91,40 +90,37 @@ gltfloader.load(
     controls.target.set(shoe.position.x, shoe.position.y, shoe.position.z);
     shoe.scale.set(1, 1, 1);
     watch(() => props.material, (newMaterial) => {
-  //make a switch statement to change the material of the shoe
-  switch(newMaterial){
-    case "Leather":
-      textureLoader = new THREE.TextureLoader();
-      shoe["children"][0]["children"][0].material = new THREE.MeshStandardMaterial({ 
-      normalMap:  textureLoader.load('/textures/leatherMaterial/brown_leather_nor_gl_4k.jpg'), 
-      aoMap: textureLoader.load('/textures/leatherMaterial/brown_leather_ao_4K.jpg'), 
-      displacementMap: textureLoader.load('/textures/leatherMaterial/leather_disp_4k.jpg'), 
-      displacementScale: 0,
-      roughnessMap: textureLoader.load('/textures/leatherMaterial/brown_leather_rough_4k.jpg'),
-      roughness: 1,
-      map: textureLoader.load('/textures/leatherMaterial/brown_leather_albedo_4k.jpg'),
-     });
-      
-    break;
-    case "Polyester":
-      textureLoader = new THREE.TextureLoader();
-      shoe["children"][0]["children"][0].material = new THREE.MeshStandardMaterial({ 
-      normalMap: textureLoader.load('/textures/poylester/Fabric_polyester_001_normal.jpg'), 
-      aoMap: textureLoader.load('/textures/poylester/Fabric_polyester_001_ambientOcclusion.jpg'), 
-      displacementMap: textureLoader.load('/poylester/leatherMaterial/Fabric_polyester_001_height.png'), 
-      roughnessMap: textureLoader.load('/poylester/leatherMaterial/Fabric_polyester_001_roughness.jpg'),
-      roughness: 1,
-      map: textureLoader.load('/textures/poylester/Fabric_polyester_001_basecolor.jpg'),
-     });
+      //make a switch statement to change the material of the shoe
+      switch (newMaterial) {
+        case "Leather":
+          console.log("leather");
+          textureLoader = new THREE.TextureLoader();
+          shoe["children"][0]["children"][0].material = new THREE.MeshStandardMaterial({
+            normalMap: textureLoader.load('/textures/leatherMaterial/brown_leather_nor_gl_4k.jpg'),
+            aoMap: textureLoader.load('/textures/leatherMaterial/brown_leather_ao_4K.jpg'),
+            displacementMap: textureLoader.load('/textures/leatherMaterial/leather_disp_4k.jpg'),
+            displacementScale: 0,
+            roughnessMap: textureLoader.load('/textures/leatherMaterial/brown_leather_rough_4k.jpg'),
+            roughness: 1,
+          });
+
+          break;
+        case "Polyester":
+          textureLoader = new THREE.TextureLoader();
+          shoe["children"][0]["children"][0].material = new THREE.MeshStandardMaterial({
+            normalMap: textureLoader.load('/textures/poylester/Fabric_polyester_001_normal.jpg'),
+            aoMap: textureLoader.load('/textures/poylester/Fabric_polyester_001_ambientOcclusion.jpg'),
+            displacementMap: textureLoader.load('/poylester/leatherMaterial/Fabric_polyester_001_height.png'),
+            roughnessMap: textureLoader.load('/poylester/leatherMaterial/Fabric_polyester_001_roughness.jpg'),
+            roughness: 1,
+          });
+          break;
+      }
 
 
-    break;
-  }
-
-  
-});
+    });
     //set leatherMaterial texture for shoe on inside
-    
+
     //cast shadow to plane
 
     //add shadows to children
@@ -135,8 +131,6 @@ gltfloader.load(
     });
 
     //color the shoe
-    //inside
-    shoe["children"][0]["children"][0].material.color.setHex(0xffffff);
     //laces
     shoe["children"][0]["children"][1].material.color.setHex(0xffffff);
     //outside 1
@@ -149,63 +143,74 @@ gltfloader.load(
     shoe["children"][0]["children"][5].material.color.setHex(0xffffff);
     //soleTop + lips
     shoe["children"][0]["children"][6].material.color.setHex(0xffffff);
+    //inside
+    textureLoader = new THREE.TextureLoader();
+    shoe["children"][0]["children"][0].material = new THREE.MeshStandardMaterial({
+      normalMap: textureLoader.load('/textures/leatherMaterial/brown_leather_nor_gl_4k.jpg'),
+      aoMap: textureLoader.load('/textures/leatherMaterial/brown_leather_ao_4K.jpg'),
+      displacementMap: textureLoader.load('/textures/leatherMaterial/leather_disp_4k.jpg'),
+      displacementScale: 0,
+      roughnessMap: textureLoader.load('/textures/leatherMaterial/brown_leather_rough_4k.jpg'),
+      roughness: 1,
+      map: textureLoader.load('/textures/leatherMaterial/brown_leather_albedo_4k.jpg'),
+    });
     watch(() => props.color, (newColor) => {
-      color = parseInt("0x"+newColor);
-      switch(props.shoespot) {
-      case 0:
-        shoe["children"][0]["children"][1].material.color.setHex(color);
-        break;
-      case 1:
-        shoe["children"][0]["children"][5].material.color.setHex(color);
-        break;
-      case 2:
-        shoe["children"][0]["children"][6].material.color.setHex(color);
-        break;
-      case 3:
-        shoe["children"][0]["children"][2].material.color.setHex(color);
-        break;
-      case 4:
-        shoe["children"][0]["children"][3].material.color.setHex(color);
-        shoe["children"][0]["children"][4].material.color.setHex(color);
-        break;
-      case 5:
-        shoe["children"][0]["children"][0].material.color.setHex(color);
-        break;
-    }
+      color = parseInt("0x" + newColor);
+      switch (props.shoespot) {
+        case 0:
+          shoe["children"][0]["children"][1].material.color.setHex(color);
+          break;
+        case 1:
+          shoe["children"][0]["children"][5].material.color.setHex(color);
+          break;
+        case 2:
+          shoe["children"][0]["children"][6].material.color.setHex(color);
+          break;
+        case 3:
+          shoe["children"][0]["children"][2].material.color.setHex(color);
+          break;
+        case 4:
+          shoe["children"][0]["children"][3].material.color.setHex(color);
+          shoe["children"][0]["children"][4].material.color.setHex(color);
+          break;
+        case 5:
+          shoe["children"][0]["children"][0].material.color.setHex(color);
+          break;
+      }
     });
 
-   
+
 
     scene.add(shoe);
     // Load the cube textures
-cubeTextureLoader.load(
-  [
-    'cubemap/px.png',
-    'cubemap/nx.png',
-    'cubemap/py.png',
-    'cubemap/ny.png',
-    'cubemap/pz.png',
-    'cubemap/nz.png',
-  ],
-  function (textureCube) {
-    // Set the scene's background to the loaded cube texture
-    scene.background = textureCube;
-  }
-);
+    cubeTextureLoader.load(
+      [
+        'cubemap/px.png',
+        'cubemap/nx.png',
+        'cubemap/py.png',
+        'cubemap/ny.png',
+        'cubemap/pz.png',
+        'cubemap/nz.png',
+      ],
+      function (textureCube) {
+        // Set the scene's background to the loaded cube texture
+        scene.background = textureCube;
+      }
+    );
   },
 );
 
 
-const geometry = new THREE.PlaneGeometry( 2000, 2000 );
-geometry.rotateX( - Math.PI / 2 );
+const geometry = new THREE.PlaneGeometry(2000, 2000);
+geometry.rotateX(- Math.PI / 2);
 
 const material = new THREE.ShadowMaterial();
 material.opacity = 0.4;
 
-const plane = new THREE.Mesh( geometry, material );
+const plane = new THREE.Mesh(geometry, material);
 plane.receiveShadow = true;
 plane.position.y = -0.05;
-scene.add( plane );
+scene.add(plane);
 
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 1.5); // Adjust the intensity (e.g., 0.8)
@@ -237,7 +242,7 @@ let change = false;
 camera.position.set(0, 0.2, 0.35);
 
 //set initial rotation
-camera.rotation.set( Math.PI/-6, 0, 0);
+camera.rotation.set(Math.PI / -6, 0, 0);
 
 const easeInOutCubic = (t) => (t < 0.5 ? 4 * t ** 3 : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
@@ -261,7 +266,7 @@ const resetCamera = () => {
     const easedT = easeInOutCubic(t);
 
     camera.position.lerp(targetPosition, easedT);
-    
+
     // Use slerp for quaternion interpolation
     const newQuaternion = new THREE.Quaternion().slerp(targetQuaternion, easedT);
     camera.setRotationFromQuaternion(newQuaternion);
@@ -284,22 +289,22 @@ let targetRotation = new Quaternion();
 watch(() => props.shoespot, (newShoespot) => {
   // Change the shoe rotation based on the new shoespot
   let euler = new Euler();
-  if(newShoespot == 0){
+  if (newShoespot == 0) {
     euler.set(0, 0, 0);
     resetCamera();
-  } else if(newShoespot == 1){
+  } else if (newShoespot == 1) {
     euler.set(0, Math.PI / 2, 0);
     resetCamera();
-  } else if(newShoespot == 2){
+  } else if (newShoespot == 2) {
     euler.set(0, Math.PI / 2, 0);
     resetCamera();
-  } else if(newShoespot == 3){
+  } else if (newShoespot == 3) {
     euler.set(0, -Math.PI / 2, 0);
     resetCamera();
-  } else if(newShoespot == 4){
+  } else if (newShoespot == 4) {
     euler.set(0, -Math.PI / 2, 0);
     resetCamera();
-  } else if(newShoespot == 5){
+  } else if (newShoespot == 5) {
     euler.set(0, Math.PI / 2, 1);
     resetCamera();
   }
@@ -349,7 +354,10 @@ const downloadScreenshot = () => {
 
 <template>
   <div class="picture" @click="takeScreenshot">
-    <svg xmlns="http://www.w3.org/2000/svg" height="44" width="44" viewBox="0 0 512 512"><path d="M149.1 64.8L138.7 96H64C28.7 96 0 124.7 0 160V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H373.3L362.9 64.8C356.4 45.2 338.1 32 317.4 32H194.6c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" height="44" width="44" viewBox="0 0 512 512">
+      <path
+        d="M149.1 64.8L138.7 96H64C28.7 96 0 124.7 0 160V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V160c0-35.3-28.7-64-64-64H373.3L362.9 64.8C356.4 45.2 338.1 32 317.4 32H194.6c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z" />
+    </svg>
   </div>
   <div v-if="showPreview" id="previewContainer">
     <img :src="screenshotDataUrl" id="screenshotPreview" />
@@ -366,11 +374,9 @@ const downloadScreenshot = () => {
   background-color: white;
   width: 400px;
   padding: 20px;
-
-  
 }
+
 #screenshotPreview {
   width: 100%;
   height: auto;
-}
-</style>
+}</style>

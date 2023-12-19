@@ -3,8 +3,8 @@ import { useRouter } from 'vue-router'
 import { ref, defineEmits, defineProps } from 'vue'
 
 const emit = defineEmits({
-  // Define your emits here
-  'size-changed': null,
+    // Define your emits here
+    'size-changed': null,
 });
 
 // Receive shoeOptions as a prop
@@ -23,11 +23,11 @@ const goToPrevieusPage = () => {
     router.push('/');
 }
 const goToNextPage = () => {
-    if(selectedSize.value === null){
+    if (selectedSize.value === null) {
         console.log('no size selected');
         showOverlay.value = true;
     }
-    else{
+    else {
         const shoeColorPlace1 = props.shoeOptions[0][0].join(',');
         const shoeColorPlace2 = props.shoeOptions[0][1].join(',');
         const shoeColorPlace3 = props.shoeOptions[0][2].join(',');
@@ -57,8 +57,9 @@ const setShoeSize = (shoesize) => {
                 <a href="#" @click.prevent="goToPrevieusPage">back</a>
             </div>
             <h1>Shoe Size</h1>
-            <div id="shoesizeContainer" >
-                <div v-for="shoesize in shoesizes" :key="shoesize" @click="setShoeSize(shoesize)" :class="{ selected: shoesize === selectedSize, unselected: shoesize !== selectedSize }">
+            <div id="shoesizeContainer">
+                <div v-for="shoesize in shoesizes" :key="shoesize" @click="setShoeSize(shoesize)"
+                    :class="{ selected: shoesize === selectedSize, unselected: shoesize !== selectedSize }">
                     <p>{{ shoesize }}</p>
                 </div>
                 <div v-if="showOverlay" class="overlay">
@@ -69,63 +70,70 @@ const setShoeSize = (shoesize) => {
                 <a href="#" @click.prevent="goToNextPage">Next</a>
             </div>
         </div>
-    </div>  
+    </div>
 </template>
 
 <style scoped>
-    h1 {
-        color: #D6FF38;
-        font-size: 2em;
-        margin: 0;
-        padding: 0;
-        font-weight: bold;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-    .unselected {
-        cursor: pointer;
-        display: inline-block;
-        border: white solid 2px;
-        color: white;
-        width: 50px;
-        height: 50px;
-        margin: 10px;
-        text-align: center;  
-    }
-    .selected {
-        cursor: pointer;
-        display: inline-block;
-        border: #D6FF38 solid 2px;
-        color: #D6FF38;
-        width: 50px;
-        height: 50px;
-        margin: 10px;
-        text-align: center;  
-    }
-    #shoesize:hover {
-        cursor: pointer;
-        border: #D6FF38 solid 2px;
-        color: #D6FF38;
-    }
-    #shoesizeContainer {
-        display: grid;
-        grid-template-columns: repeat(10, 1fr);
-        grid-gap: 10px;
-        padding: 10px;
-    }
-    .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    a{
+h1 {
+    color: #D6FF38;
+    font-size: 2em;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.unselected {
+    cursor: pointer;
+    display: inline-block;
+    border: white solid 2px;
+    color: white;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    text-align: center;
+}
+
+.selected {
+    cursor: pointer;
+    display: inline-block;
+    border: #D6FF38 solid 2px;
+    color: #D6FF38;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    text-align: center;
+}
+
+#shoesize:hover {
+    cursor: pointer;
+    border: #D6FF38 solid 2px;
+    color: #D6FF38;
+}
+
+#shoesizeContainer {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-gap: 10px;
+    padding: 10px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+a {
     color: black;
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
     font-size: 1.5em;
     font-weight: bold;
 }
-.btn{
+
+.btn {
     display: inline-block;
     background-color: #D6FF38;
     width: 100px;
@@ -133,12 +141,13 @@ const setShoeSize = (shoesize) => {
     position: absolute;
     bottom: 0;
     right: 0;
-    margin: 20px; 
+    margin: 20px;
     text-align: center;
     line-height: 50px;
-    
+
 }
-.btnBack{
+
+.btnBack {
     display: inline-block;
     background-color: #D6FF38;
     width: 100px;
@@ -146,31 +155,31 @@ const setShoeSize = (shoesize) => {
     position: absolute;
     bottom: 0;
     left: 0;
-    margin: 20px; 
+    margin: 20px;
     text-align: center;
     line-height: 50px;
-    
+
 }
-.section{
+
+.section {
     width: 100%;
     position: absolute;
     bottom: 0;
     left: 0;
     background-color: black;
 }
-.overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 75%;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        font-size: 2em;
-        font-family: Arial, Helvetica, sans-serif;
-    }
 
-</style>
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 75%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 2em;
+    font-family: Arial, Helvetica, sans-serif;
+}</style>
