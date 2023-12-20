@@ -113,16 +113,36 @@ const goToPrevieusPage = () => {
 <template>
   <form @submit.prevent="sendData">
     <h1>Your information</h1>
-    <div class="shoeInfo">
-      <p>Laces: #{{ array1[0] }}</p>
+  <div class="shoeInfo">
+    <div class="color">
+    <p>Laces: #{{ array1[0] }}</p>
+      <div class="colorbox" :style="{ backgroundColor: '#' + array1[0] }"></div>
+    </div>
+    <div class="color">
       <p>Outsole: #{{ array2[0] }}</p>
+      <div class="colorbox" :style="{ backgroundColor: '#' + array2[0] }"></div>
+    </div>
+    <div class="color">
       <p>Midsole: #{{ array3[0] }}</p>
+      <div class="colorbox" :style="{ backgroundColor: '#' + array3[0] }"></div>
+    </div>
+    <div class="color">
       <p>Outer material: #{{ array4[0] }}</p>
-      <p>Mid material: #{{ array5[0] }}</p>
+      <div class="colorbox" :style="{ backgroundColor: '#' + array4[0] }"></div>
+    </div>
+    <div class="color">
+    <p>Mid material: #{{ array5[0] }}</p>
+    <div class="colorbox" :style="{ backgroundColor: '#' + array5[0] }"></div>
+    </div>
+    <div class="color">
       <p>Inner material: #{{ array6[0] }}</p>
+      <div class="colorbox" :style="{ backgroundColor: '#' + array6[0] }"></div>
+    </div>
+    <div class="color">
       <p>Material: {{ material }}</p>
       <p>Size: {{ size }}</p>
     </div>
+  </div>
     <div class="userInfo">
       <h2>contact</h2>
       <div class="name">
@@ -182,7 +202,6 @@ const goToPrevieusPage = () => {
           <button type="submit">Next</button>
         </div>
       </div>
-
     </div>
 </form>
 </template>
@@ -305,6 +324,18 @@ h2 {
   text-decoration: none;
   font-size: 1em;
   font-weight: bold;
+}
+.color{
+  display: flex;
+  flex-direction: row;
+  margin: 0em 2em 0em 0em;
+
+}
+.colorbox {
+  width: 50px;
+  height: 40px;
+  border-radius: 50%;
+  margin: auto;
 }
 .btns {
   display: flex;
