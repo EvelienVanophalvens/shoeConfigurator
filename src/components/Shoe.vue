@@ -84,7 +84,7 @@ const gltfloader = new GLTFLoader();
 
 
 gltfloader.load(
-  '/models/shoe.glb',
+  '/models/untitled.gltf',
   function (gltf) {
     shoe = gltf.scene;
     controls.target.set(shoe.position.x, shoe.position.y, shoe.position.z);
