@@ -221,8 +221,8 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
 directionalLight.position.set(0, 1, 0);
 directionalLight.castShadow = true;
 // Add this after defining your directional light
-directionalLight.shadow.mapSize.width = 5120; // default is 512, increase for higher resolution
-directionalLight.shadow.mapSize.height = 5120; // default is 512, increase for higher resolution
+directionalLight.shadow.mapSize.width = 120; // default is 512, increase for higher resolution
+directionalLight.shadow.mapSize.height = 120; // default is 512, increase for higher resolution
 
 // Add this after defining your directional light
 directionalLight.shadow.camera.left = -1; // default is -5, increase for more spread
