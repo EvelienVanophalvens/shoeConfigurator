@@ -183,20 +183,20 @@ gltfloader.load(
 
     scene.add(shoe);
     // Load the cube textures
-    // cubeTextureLoader.load(
-    //   [
-    //     'cubemap/px.png',
-    //     'cubemap/nx.png',
-    //     'cubemap/py.png',
-    //     'cubemap/ny.png',
-    //     'cubemap/pz.png',
-    //     'cubemap/nz.png',
-    //   ],
-    //   function (textureCube) {
-    //     // Set the scene's background to the loaded cube texture
-    //     scene.background = textureCube;
-    //   }
-    // );
+    cubeTextureLoader.load(
+      [
+        'cubemap/px.png',
+        'cubemap/nx.png',
+        'cubemap/py.png',
+        'cubemap/ny.png',
+        'cubemap/pz.png',
+        'cubemap/nz.png',
+      ],
+      function (textureCube) {
+        // Set the scene's background to the loaded cube texture
+        scene.background = textureCube;
+      }
+    );
   },
 );
 
