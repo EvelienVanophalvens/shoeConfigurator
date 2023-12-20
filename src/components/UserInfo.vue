@@ -1,8 +1,9 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import Swal from 'sweetalert2'
 //receive json string from shoeSize.vue
+const router = useRouter();
 
 let socket = null;
 
@@ -101,6 +102,9 @@ const sendData = () => {
     })
   }
 };
+const goToPrevieusPage = () => {
+  router.push('/shoeSize')
+}
 
 
 
@@ -168,6 +172,9 @@ const sendData = () => {
         <label for="country">country:</label>
         <input id="country" type="text">
       </div>
+    </div>
+    <div class="btnBack">
+      <a href="#" @click="goToPrevieusPage">back</a>
     </div>
     <div class="btn">
       <a href="#" @click="sendData">Next</a>
@@ -267,5 +274,23 @@ h2 {
   flex-direction: row;
   width: 70%;
   margin: auto;
+}
+.btnBack {
+    display: inline-block;
+    background-color: #D6FF38;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    justify-self: end;
+    align-self: start;
+    margin: 0em 2em 0em 0em;
+}
+.btnBack a {
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none;
+  font-size: 1em;
+  font-weight: bold;
 }
 </style>
