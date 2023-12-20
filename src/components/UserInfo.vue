@@ -111,7 +111,8 @@ const goToPrevieusPage = () => {
 </script>
 
 <template>
-  <h1>Your information</h1>
+  <form @submit.prevent="sendData">
+    <h1>Your information</h1>
   <div class="shoeInfo">
     <div class="color">
     <p>Laces: #{{ array1[0] }}</p>
@@ -142,64 +143,68 @@ const goToPrevieusPage = () => {
       <p>Size: {{ size }}</p>
     </div>
   </div>
-  <div class="userInfo">
-    <h2>contact</h2>
-    <div class="name">
-      <div class="input">
-        <label for="firstname">firstname:</label>
-        <input id="firstname" type="text">
+    <div class="userInfo">
+      <h2>contact</h2>
+      <div class="name">
+        <div class="input">
+          <label for="firstname">firstname:</label>
+          <input id="firstname" type="text">
+        </div>
+        <div class="input">
+          <label for="lastname">lastname:</label>
+          <input id="lastname" type="text">
+        </div>
       </div>
-      <div class="input">
-        <label for="lastname">lastname:</label>
-        <input id="lastname" type="text">
+      <div class="contact">
+        <div class="input">
+          <label for="email">email:</label>
+          <input id="email" type="text">
+        </div>
+        <div class="input">
+          <label for="phoneNumber">phonenumber:</label>
+          <input id="phoneNumber" type="text">
+        </div>
       </div>
+      <h2>adress</h2>
+      <div class="address1">
+        <div class="input">
+          <label for="street">street:</label>
+          <input id="street" type="text">
+        </div>
+        <div class="input">
+          <label for="houseNumber">housenumber:</label>
+          <input id="houseNumber" type="text">
+        </div>
+        <div class="input">
+          <label for="city">city:</label>
+          <input id="city" type="text">
+        </div>
+        <div class="input">
+          <label for="zipcode">zipcode:</label>
+          <input id="zipcode" type="text">
+        </div>
+      </div>
+      <div class="address2">
+        <div class="input">
+          <label for="state">state:</label>
+          <input id="state" type="text">
+        </div>
+        <div class="input">
+          <label for="country">country:</label>
+          <input id="country" type="text">
+        </div>
+      </div>
+      <div class="btns">
+        <div class="btnBack">
+          <a href="#" @click="goToPrevieusPage">back</a>
+        </div>
+        <div class="btn">
+          <button type="submit">Next</button>
+        </div>
+      </div>
+
     </div>
-    <div class="contact">
-      <div class="input">
-        <label for="email">email:</label>
-        <input id="email" type="text">
-      </div>
-      <div class="input">
-        <label for="phoneNumber">phonenumber:</label>
-        <input id="phoneNumber" type="text">
-      </div>
-    </div>
-    <h2>adress</h2>
-    <div class="address1">
-      <div class="input">
-        <label for="street">street:</label>
-        <input id="street" type="text">
-      </div>
-      <div class="input">
-        <label for="houseNumber">housenumber:</label>
-        <input id="houseNumber" type="text">
-      </div>
-      <div class="input">
-        <label for="city">city:</label>
-        <input id="city" type="text">
-      </div>
-      <div class="input">
-        <label for="zipcode">zipcode:</label>
-        <input id="zipcode" type="text">
-      </div>
-    </div>
-    <div class="address2">
-      <div class="input">
-        <label for="state">state:</label>
-        <input id="state" type="text">
-      </div>
-      <div class="input">
-        <label for="country">country:</label>
-        <input id="country" type="text">
-      </div>
-    </div>
-    <div class="btnBack">
-      <a href="#" @click="goToPrevieusPage">back</a>
-    </div>
-    <div class="btn">
-      <a href="#" @click="sendData">Next</a>
-    </div>
-  </div>
+</form>
 </template>
 <style scoped>
 h1 {
@@ -276,19 +281,26 @@ h2 {
   height: 50px;
   text-align: center;
   line-height: 50px;
-  justify-self: end;
-  align-self: end;
   margin: 0em 2em 0em 0em;
 }
 
-.btn a {
+.btn button {  
+  width: 100px;
+  height: 50px;
+  background-color: #D6FF38;
+  border: 0;
   color: black;
   font-family: Arial, Helvetica, sans-serif;
   text-decoration: none;
   font-size: 1em;
   font-weight: bold;
 }
-
+.btn button:hover {
+  cursor: pointer;
+}
+.btnBack a:hover {
+  cursor: pointer;
+}
 .shoeInfo {
   display: flex;
   flex-direction: row;
@@ -302,11 +314,12 @@ h2 {
     height: 50px;
     text-align: center;
     line-height: 50px;
-    justify-self: end;
     align-self: start;
     margin: 0em 2em 0em 0em;
 }
 .btnBack a {
+  margin-top: 200px;
+  padding: 60px 25px;
   color: black;
   font-family: Arial, Helvetica, sans-serif;
   text-decoration: none;
@@ -324,6 +337,11 @@ h2 {
   height: 40px;
   border-radius: 50%;
   margin: auto;
+}
   
+.btns {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 </style>
