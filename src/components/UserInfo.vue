@@ -202,7 +202,6 @@ const goToPrevieusPage = () => {
           <button type="submit">Next</button>
         </div>
       </div>
-
     </div>
 </form>
 </template>
@@ -338,7 +337,6 @@ h2 {
   border-radius: 50%;
   margin: auto;
 }
-  
 .btns {
   display: flex;
   justify-content: space-between;
