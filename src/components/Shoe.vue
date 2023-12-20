@@ -311,12 +311,9 @@ watch(() => props.shoespot, (newShoespot) => {
   targetRotation.setFromEuler(euler);
 });
 
-const clock = new THREE.Clock();
 
 
 function animate() {
-  const elapsedTime = clock.getElapsedTime();
-
   requestAnimationFrame(animate);
 
   // Check if shoe is defined before trying to access its quaternion
